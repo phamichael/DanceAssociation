@@ -1,0 +1,54 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Adherents-Administration {% endblock %}
+
+{% block body %}
+
+	{# {% if is_granted('ROLE_ADMIN') %}{% endif %} #}
+
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Gestion des adherents !</h2>
+		</div>
+	</div>
+		
+
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<span style="font-weight:bold;font-size:xx-large;"> Les adherents </span>
+					<span style="font-weight:bold;">Modification et suppression</span>
+				</div>
+				
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table">
+							<caption> Les adherents pour cette saison </caption>
+							<tr>
+								<th>Login</th>
+								<!--<th>Mot de passe</th>-->
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Date de naissance</th>
+								<th></th>
+								</tr>
+								{% for adherent in lesadherents %} 
+								<tr class="ligne_tab_adherents">
+									<td>{{ adherent.username }}</td>
+									<!--<td>{{ adherent.password }}</td>-->
+									<td>{{ adherent.nomPersonne }}</td>
+									<td>{{ adherent.prenomPersonne }}</td>
+									<td>{{ adherent.dateNaissancePersonne|date('d/m/Y') }}</td>
+									{# <td><a href="" data-toggle="modal" data-target="#modif_adherent"><img src='{{ asset('/img/modifier.png') }}' height='20' width='20'/></a><a href="" data-toggle="modal" data-target="#suppr_adherent"><img src='{{ asset('/img/supprimer.png') }}' height="20" width="20" class="img_supprimer_adherent"/></a></td> #}
+									<td> <a href="{{ url('adherent_editsuppr', {'idPersonne': adherent.id}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+								</tr>
+								{% endfor %}
+							</tr>		
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

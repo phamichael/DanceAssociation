@@ -1,0 +1,73 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer {{stage.titreStage}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier/Supprimer le stage {{stage.titreStage}}</h1>
+			</div>
+		</div>		
+
+		<!-- Suppression du stage -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				
+				<a id="btnInscrire" href="{{ path('stages_inscription', {'titrestage': stage.titreStage}) }}" class="btn btn-default"> (Dés)Inscrire un stagiaire </a>
+				<a id="btnAffecter" href="{{ path('stages_affectation', {'titrestage': stage.titreStage}) }}" class="btn btn-default"> (Dés)Affecter un professeur </a>
+				<a id="btnSuppr" href="#" class="btn btn-danger"> Supprimer le stage </a>
+				
+				<div id="confirSuppr" hidden>
+					<p>
+						Etes-vous certain de vouloir supprimer ce stage ?
+					</p>
+
+					<form action="{{ path('stage_editsuppr', {'titrestage': stage.titreStage}) }}" method="POST" id="formSuppr">	
+						<a id="btnAnnulerSuppr" href="#" class="btn btn-default">
+							Ne pas supprimer
+						</a>
+						{# Ici j'ai écrit le bouton de soumission à la main #}	
+						<input type="submit" value="Supprimer" class="btn btn-danger" />
+						{# Ceci va générer le champ CSRF #}
+						{{ form_rest(formSuppr) }}
+					  </form>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+		<!-- Modification du stage -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3>Modification des informations du stage </h3>
+				{% include "StagesBundle:formAddEdit.html.twig" %}
+			</div>
+		</div>
+	
+	
+		<!-- La fiche du stage -->
+		<div class="row" style="margin-top:2em;">
+			
+			<div id="visualiser_fiche" class="centrer col-md-offset-2 col-md-8">
+				<a class="btn btn-default btn-block" href="#">Visualiser la fiche du stage</a>
+			</div>
+			
+			
+			<div id="fiche" class="col-md-offset-2 col-md-8 ficheActivite" hidden>
+				<h1 class="titreActiviteFiche">{{stage.titreStage}}</h1>
+				<span class="italique">Le {{ stage.dateStage|date('d/m/Y') }} de {{ stage.heureDebutStage|date('H:i:s') }} à {{ stage.heureFinStage|date('H:i:s') }} </span>
+				<p>
+					{{ stage.descriptifStage }}
+				</p>
+				<div>
+					<span class="rouge">Date limite des préinscriptions : {{ stage.delaiPreinscription|date('d/m/Y') }} </span>
+					<br/>
+					<span>Montant de préinscription : {{ stage.montantPreinscription }}€ </span>
+				</div>
+			</div>
+		</div>	
+		
+		
+{% endblock %}

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+	
+	<head>
+	   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	   <title>Assoc'Danse {% block rubrique %}{% endblock %}</title>
+	   
+	   {% block css %}
+			<link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" type="text/css" />
+			<link rel="stylesheet" href="{{ asset('/css/feuilleGeneral.css') }}" type="text/css" />
+			
+			<!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+			<link rel="stylesheet" href="{{ asset('/css/signin.css') }}" type="text/css" />
+		{% endblock %}	
+	</head>
+	
+	<body>
+		<!-- Barre de navigation : -->
+		<nav class="navbar navbar-default navbar-fixed-top navbardMenu">
+			<div class="container-fluid">
+							
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="blanc navbar-brand" href="{{ path('accueil') }}">Assoc'Danse</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+
+					<ul class="nav navbar-nav">
+						<li><a role="button" href="{{ path('accueil') }}" class="blanc"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></li>
+						<li class="dropdown">
+
+							<a href="#" class="blanc dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Cours de danse <span class="caret"></span></a>
+
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ path('cours_accueil') }}">Nos cours</a></li>
+								<li><a href="{{ path('danses_accueil') }}">Nos danses</a></li>
+								<li><a href="{{ path('cours_planning') }}">Planning cours</a></li>
+							</ul>
+						</li>
+						<li><a href="{{ path('stages_accueil') }}" class="blanc">Stages</a></li>
+						<li><a href="{{ path('soirees_accueil') }}" class="blanc">Soirées</a></li>
+						{% if is_granted("ROLE_ADMIN") %}
+							<li><a href="{{ path('administration') }}" class="blanc">Administration</a></li>
+						{% endif %}
+					</ul>
+					<ul class="nav navbar-nav navbar-right">					
+						{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    						{# {{ app.user.username }} #}
+    						{% if is_granted("ROLE_ADMIN") %}
+    							<li><a href="{{ path('mon_compteAdmin') }}" class="blanc"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Mon compte</a></li>
+    						{% else %}
+    							<li><a href="{{ path('mon_compte') }}" class="blanc"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Mon compte</a></li>
+    						{% endif %}
+			                <li><a href="{{ path('fos_user_security_logout') }}" class="blanc"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> {{ 'Se déconnecter'|trans({}, 'FOSUserBundle') }}</a></li>
+			            {% else %}
+			                <li><a href="{{ path('fos_user_security_login') }}" class="blanc"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> {{ 'Connexion'|trans({}, 'FOSUserBundle') }}</a></li>
+			            {% endif %}
+					</ul>
+				</div>
+					
+			</div>
+		</nav>
+		<!-- Fin de la barre de navigation -->
+
+		<div class="container">
+			{% if app.request.hasPreviousSession %}
+	            {% for type, messages in app.session.flashbag.all() %}
+	                {% for message in messages %}
+	                    <div class="flash-{{ type }}">
+	                        {{ message }}
+	                    </div>
+	                {% endfor %}
+	            {% endfor %}
+	        {% endif %}
+	        
+		{% block body %}{% endblock %}
+		
+		</div>
+
+		<footer id="footer" class="navbardMenu">
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-6">
+						<a href="http://www.facebook.fr"><img src="{{ asset('/img/fb.png') }}" alt="Lien Facebook de l'association"></a>
+						<a href="http://twitter.com"><img src="{{ asset('/img/twitte.png') }}" alt="Lien Twitter de l'association"></a>
+						<a href="https://www.instagram.com"><img src="{{ asset('/img/instagram.png') }}" alt="Lien Instagram de l'association"></a>
+					</div>
+					<div class="col-md-6 col-xs-6">
+						<a href="{{ path('contact') }}" class="blanc floatRight"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Contactez-nous ! </a>
+					</div>
+				</div>
+			</div>
+		</footer>
+		
+		{% block javascripts %}
+			<script type="text/javascript" src="{{ asset('/js/jquery.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('/js/scriptGeneral.js') }}"></script>
+		{% endblock %}
+
+	</body>
+</html>
+
+
+
+
+<!-- ************************* ANCIEN JET : ******************************** -->
+
+<!--
+<!DOCTYPE html>
+<html lang="fr">
+  
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		
+		<title>Association de danse {% block rubriquee %}{% endblock %} </title>
+		
+		{% block csss %}
+			
+			<link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}" type="text/css" />
+			<link rel="stylesheet" href="{{ asset('/css/feuilleGeneral.css') }}" type="text/css" />
+		{% endblock %}
+	</head>
+  
+	<body>
+		<div class="container">
+			
+			<div class="row masthead">
+				<nav>
+					<ul class="nav nav-justified">
+						<li><a href="index.html">Accueil</a></li>
+						<li><a href="cours.html">Nos cours</a></li>
+						<li class="active"><a href="{{ path('stages_accueil') }}">Nos stages</a></li>
+						<li><a href="accueil_soirees.html">Nos soirées</a></li>
+						<li><a href="administration.html">Administration</a></li>
+						<li><a href="contact.html">Contact</a></li>
+					</ul>
+				</nav>
+				<a href="connexion.html" class="btn btn-success navbar-btn">Connexion</a>
+			</div>
+			
+			{% block bodyy %}
+			{% endblock %}	
+					
+			<footer id="footer">
+				<div class="container">
+					<div class="col-md-12">
+						<a href="http://www.facebook.fr"><img src="{{ asset('/img/fb.png') }}" alt="Lien Facebook de l'association"></a>
+						<a href="http://twitter.com"><img src="{{ asset('/img/twitte.png') }}" alt="Lien Twitter de l'association"></a>
+						<a href="https://www.instagram.com"><img src="{{ asset('/img/insta.jpeg') }}" alt="Lien Instagram de l'association"></a>
+					</div>
+				</div>
+			</footer>
+			
+		</div>
+		
+		{% block javascriptss %}
+			<script type="text/javascript" src="{{ asset('/js/jquery.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('/js/bootstrap.min.js') }}"></script>
+		{% endblock %}
+		
+		
+	</body>
+	
+</html>
+-->
+

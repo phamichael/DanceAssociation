@@ -1,0 +1,108 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer la soirée {{soiree.titreSoiree}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier/Supprimer la soirée <a href="#fiche">{{soiree.titreSoiree}}</a></h1>
+			</div>
+		</div>		
+
+		<!-- Suppression de la danse -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<a id="btnInscrire" href="{{ path('soirees_inscription', {'titresoiree': soiree.titreSoiree}) }}" class="btn btn-default"> (Dés)Inscrire un adhérent </a>
+				<a id="btnAffecter" href="{{ path('soirees_affectation', {'titresoiree': soiree.titreSoiree}) }}"  class="btn btn-default"> (Dés)Affecter un professeur </a>
+				<a id="btnAddCoursInit" href="#addCoursInit" class="btn btn-success"> Ajouter un cours d'initiation </a>
+				<a id="btnSuppr" href="#" class="btn btn-danger"> Supprimer la soirée </a>
+				
+				<div id="confirSuppr" hidden>
+					<p>
+						Etes-vous certain de vouloir supprimer cette soirée ?
+					</p>
+
+					<form action="{{ path('soiree_editsuppr', {'titresoiree': soiree.titreSoiree}) }}" method="POST" id="formSuppr">	
+						<a id="btnAnnulerSuppr" href="#" class="btn btn-default">
+							Ne pas supprimer
+						</a>
+						{# Ici j'ai écrit le bouton de soumission à la main #}	
+						<input type="submit" value="Supprimer" class="btn btn-danger" />
+						{# Ceci va générer le champ CSRF #}
+						{{ form_rest(formSuppr) }}
+					  </form>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+		<!-- Modification de la soirée -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3>Modification des informations de la soirée </h3>
+				{% include "SoireesBundle:formAddEdit.html.twig" %}
+			</div>
+		</div>
+	
+	
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3 id="addCoursInit">Ajout d'un cours d'initiation </h3>
+				{% include "SoireesBundle:formAddEdit_CoursInit.html.twig" %}
+			</div>
+		</div>
+	
+		<!-- La fiche de soirée -->
+		<div class="row" style="margin-top:2em;">
+			
+<!--
+			<div id="visualiser_fiche" class="centrer col-md-offset-2 col-md-8">
+				<a class="btn btn-default btn-block" href="#">Visualiser la fiche de la soirée</a>
+			</div>
+-->
+			
+			
+			<div id="fiche" class="col-md-offset-2 col-md-8 ficheActivite"> <!-- hidden -->
+				<h3 class="italique">Fiche de la soirée </h3>
+				<h1 class="gras centrer titreActiviteFiche">{{soiree.titreSoiree}}</h1>
+				<span class="italique">Descriptif : </span>
+				{{ soiree.descriptifSoiree }}
+				<div class="table-responsive">
+					<table class="table">
+						<caption>Cours d'initiation ({{soiree.coursinitiation|length}})</caption>
+						<tr>
+							<th>Danse</th>
+							<th>Professeur(s)</th>
+							<th>Salle(s)</th>											
+							<th>Jours</th>											
+							<th>Début</th>											
+							<th>Fin</th>											
+						</tr>
+						{% for cours in soiree.coursinitiation %}
+							<tr class="ligne_tab_danse">
+								<td>{{cours.danse.nomDanse}}</td>
+								<td>
+									{% for prof in cours.professeurAssociation %}
+										{{ prof.personne.nomPersonne }}
+									{% endfor %}
+								</td>
+								<td>
+									{{cours.salle.nomSalle}}
+								</td>
+								<td>{{ cours.jourCours }}</td>
+								<td>{{ cours.heureDebutCours|date('H:i:s') }}</td>
+								<td>{{ cours.heureDebutCours|date('H:i:s') }}</td>
+								<td> <a href="{{ path('soiree_editsupprCoursInit', {'titresoiree': soiree.titreSoiree, 'idcours':cours.id}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+							</tr>
+						{% else %}
+							<tr><td class="rouge italique">Aucun cours d'initiation pour cette soirée.</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>	
+		
+		
+{% endblock %}

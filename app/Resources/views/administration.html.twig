@@ -1,0 +1,107 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Administration {% endblock %}
+
+{% block body %}
+{% if is_granted("ROLE_ADMIN") %}
+	<div class="jumbotron">
+
+    <h1>Gestion de l'association</h1>
+  </div>
+
+  <div class="row">
+        <h1 class="blanc gras">Gestion de l'association</h1>
+        <!--<p class="lead">Gestion de l'association</p>-->
+    </div>
+      	<div class="row">
+      		
+
+      		<div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Inscription aux cours</h4>
+                    	<a href="{{ path('inscription_cours') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Danses et niveaux</h4>
+                      <a href="{{ path('danses_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Cours</h4>
+                    	<a href="{{ path('cours_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Adhérents</h4>
+                      <a href="{{ path('adherents_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Professeurs</h4>
+                      <a href="{{ path('professeurs_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Stages</h4>
+                      <a href="{{ path('stages_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+        
+			<div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Salles</h4>
+                        <a href="{{ path('salles_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+			
+			
+			<div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Soirées</h4>
+                      <a href="{{ path('soirees_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h4 class="centrer"> Saisons</h4>
+                      <a href="{{ path('saisons_administration') }}" class="btn btn-default btn-block">Accéder >></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      	</div>
+
+     </div>
+{% else %}
+    
+{% endif %}
+{% endblock %}

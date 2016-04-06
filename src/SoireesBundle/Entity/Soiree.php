@@ -1,0 +1,538 @@
+<?php
+
+namespace SoireesBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Soirees
+ *
+ * @ORM\Table(name="soiree")
+ * @ORM\Entity(repositoryClass="SoireesBundle\Repository\SoireesRepository")
+ */
+class Soiree
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titreSoiree", type="string", length=255)
+     */
+    private $titreSoiree;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateSoiree", type="datetime")
+     */
+    private $dateSoiree;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="heureDebutSoiree", type="time")
+     */
+    private $heureDebutSoiree;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="heureFinSoiree", type="time")
+     */
+    private $heureFinSoiree;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tarifSoiree", type="decimal", precision=10, scale=2)
+     */
+    private $tarifSoiree;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptifSoiree", type="text")
+     */
+    private $descriptifSoiree;
+
+
+    /* =========================== */
+    /* ======== LES CLES : ======= */
+    /* =========================== */
+
+    //~ /**
+    //~ * @ORM\ManyToOne(targetEntity="SaisonsBundle\Entity\Saison")
+    //~ * @ORM\JoinColumn(nullable=false)
+    //~ */
+    //~ private $saison;
+	
+	/**
+	* @ORM\ManyToOne(targetEntity="SaisonsBundle\Entity\Saison", inversedBy="soirees")
+	* @ORM\JoinColumn(nullable=false)
+	*/
+	private $saison;
+	
+
+    /**
+	* @ORM\ManyToMany(targetEntity="SaisonsBundle\Entity\Salle")
+	*/
+    private $salles;
+
+	/**
+	* @ORM\ManyToMany(targetEntity="SaisonsBundle\Entity\Danse")
+	*/
+    private $danses;
+	
+    /**
+    * @ORM\ManyToMany(targetEntity="CoursBundle\Entity\Cours")
+    */
+    private $coursinitiation;
+    
+    
+    /**
+	* @ORM\ManyToMany(targetEntity="PersonnesBundle\Entity\ProfesseurAssociation")
+	*/
+	private $professeurs;
+	
+	
+	/**
+	* @ORM\ManyToMany(targetEntity="PersonnesBundle\Entity\Adherent")
+	*/
+	private $inscrits;
+    
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->saison = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->coursinitiation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set titreSoiree
+     *
+     * @param string $titreSoiree
+     * @return Soiree
+     */
+    public function setTitreSoiree($titreSoiree)
+    {
+        $this->titreSoiree = $titreSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get titreSoiree
+     *
+     * @return string 
+     */
+    public function getTitreSoiree()
+    {
+        return $this->titreSoiree;
+    }
+
+    /**
+     * Set dateSoiree
+     *
+     * @param \DateTime $dateSoiree
+     * @return Soiree
+     */
+    public function setDateSoiree($dateSoiree)
+    {
+        $this->dateSoiree = $dateSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get dateSoiree
+     *
+     * @return \DateTime 
+     */
+    public function getDateSoiree()
+    {
+        return $this->dateSoiree;
+    }
+
+    /**
+     * Set heureDebutSoiree
+     *
+     * @param \DateTime $heureDebutSoiree
+     * @return Soiree
+     */
+    public function setHeureDebutSoiree($heureDebutSoiree)
+    {
+        $this->heureDebutSoiree = $heureDebutSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get heureDebutSoiree
+     *
+     * @return \DateTime 
+     */
+    public function getHeureDebutSoiree()
+    {
+        return $this->heureDebutSoiree;
+    }
+
+    /**
+     * Set heureFinSoiree
+     *
+     * @param \DateTime $heureFinSoiree
+     * @return Soiree
+     */
+    public function setHeureFinSoiree($heureFinSoiree)
+    {
+        $this->heureFinSoiree = $heureFinSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get heureFinSoiree
+     *
+     * @return \DateTime 
+     */
+    public function getHeureFinSoiree()
+    {
+        return $this->heureFinSoiree;
+    }
+
+    /**
+     * Set tarifSoiree
+     *
+     * @param string $tarifSoiree
+     * @return Soiree
+     */
+    public function setTarifSoiree($tarifSoiree)
+    {
+        $this->tarifSoiree = $tarifSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get tarifSoiree
+     *
+     * @return string 
+     */
+    public function getTarifSoiree()
+    {
+        return $this->tarifSoiree;
+    }
+
+    /**
+     * Set descriptifSoiree
+     *
+     * @param string $descriptifSoiree
+     * @return Soiree
+     */
+    public function setDescriptifSoiree($descriptifSoiree)
+    {
+        $this->descriptifSoiree = $descriptifSoiree;
+
+        return $this;
+    }
+
+    /**
+     * Get descriptifSoiree
+     *
+     * @return string 
+     */
+    public function getDescriptifSoiree()
+    {
+        return $this->descriptifSoiree;
+    }
+
+    /**
+     * Add saison
+     *
+     * @param \SaisonsBundle\Entity\Saison $saison
+     * @return Soiree
+     */
+    public function addSaison(\SaisonsBundle\Entity\Saison $saison)
+    {
+        $this->saison[] = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Remove saison
+     *
+     * @param \SaisonsBundle\Entity\Saison $saison
+     */
+    public function removeSaison(\SaisonsBundle\Entity\Saison $saison)
+    {
+        $this->saison->removeElement($saison);
+    }
+
+    /**
+     * Get saison
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSaison()
+    {
+        return $this->saison;
+    }
+
+    /**
+     * Add salle
+     *
+     * @param \SaisonsBundle\Entity\Salle $salle
+     * @return Soiree
+     */
+    public function addSalle(\SaisonsBundle\Entity\Salle $salle)
+    {
+        $this->salle[] = $salle;
+
+        return $this;
+    }
+
+    /**
+     * Remove salle
+     *
+     * @param \SaisonsBundle\Entity\Salle $salle
+     */
+    public function removeSalle(\SaisonsBundle\Entity\Salle $salle)
+    {
+        $this->salle->removeElement($salle);
+    }
+
+    /**
+     * Get salle
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalle()
+    {
+        return $this->salle;
+    }
+
+    /**
+     * Add cours
+     *
+     * @param \CoursBundle\Entity\Cours $cours
+     * @return Soiree
+     */
+    public function addCour(\CoursBundle\Entity\Cours $cours)
+    {
+        $this->cours[] = $cours;
+
+        return $this;
+    }
+
+    /**
+     * Remove cours
+     *
+     * @param \CoursBundle\Entity\Cours $cours
+     */
+    public function removeCour(\CoursBundle\Entity\Cours $cours)
+    {
+        $this->cours->removeElement($cours);
+    }
+
+    /**
+     * Get cours
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCours()
+    {
+        return $this->cours;
+    }
+
+    /**
+     * Set saison
+     *
+     * @param \SaisonsBundle\Entity\Saison $saison
+     * @return Soiree
+     */
+    public function setSaison(\SaisonsBundle\Entity\Saison $saison)
+    {
+        $this->saison = $saison;
+
+        return $this;
+    }
+
+    /**
+     * Set salle
+     *
+     * @param \SaisonsBundle\Entity\Salle $salle
+     * @return Soiree
+     */
+    public function setSalle(\SaisonsBundle\Entity\Salle $salle = null)
+    {
+        $this->salle = $salle;
+
+        return $this;
+    }
+
+    /**
+     * Get salles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSalles()
+    {
+        return $this->salles;
+    }
+
+    /**
+     * Add danses
+     *
+     * @param \SaisonsBundle\Entity\Danse $danses
+     * @return Soiree
+     */
+    public function addDanse(\SaisonsBundle\Entity\Danse $danses)
+    {
+        $this->danses[] = $danses;
+
+        return $this;
+    }
+
+    /**
+     * Remove danses
+     *
+     * @param \SaisonsBundle\Entity\Danse $danses
+     */
+    public function removeDanse(\SaisonsBundle\Entity\Danse $danses)
+    {
+        $this->danses->removeElement($danses);
+    }
+
+    /**
+     * Get danses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDanses()
+    {
+        return $this->danses;
+    }
+
+    /**
+     * Add coursinitiation
+     *
+     * @param \CoursBundle\Entity\Cours $coursinitiation
+     * @return Soiree
+     */
+    public function addCoursinitiation(\CoursBundle\Entity\Cours $coursinitiation)
+    {
+        $this->coursinitiation[] = $coursinitiation;
+
+        return $this;
+    }
+
+    /**
+     * Remove coursinitiation
+     *
+     * @param \CoursBundle\Entity\Cours $coursinitiation
+     */
+    public function removeCoursinitiation(\CoursBundle\Entity\Cours $coursinitiation)
+    {
+        $this->coursinitiation->removeElement($coursinitiation);
+    }
+
+    /**
+     * Get coursinitiation
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCoursinitiation()
+    {
+        return $this->coursinitiation;
+    }
+
+   
+
+    /**
+     * Add inscrits
+     *
+     * @param \PersonnesBundle\Entity\Adherent $inscrits
+     * @return Soiree
+     */
+    public function addInscrit(\PersonnesBundle\Entity\Adherent $inscrits)
+    {
+        $this->inscrits[] = $inscrits;
+
+        return $this;
+    }
+
+    /**
+     * Remove inscrits
+     *
+     * @param \PersonnesBundle\Entity\Adherent $inscrits
+     */
+    public function removeInscrit(\PersonnesBundle\Entity\Adherent $inscrits)
+    {
+        $this->inscrits->removeElement($inscrits);
+    }
+
+    /**
+     * Get inscrits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInscrits()
+    {
+        return $this->inscrits;
+    }
+
+    /**
+     * Add professeurs
+     *
+     * @param \PersonnesBundle\Entity\ProfesseurAssociation $professeurs
+     * @return Soiree
+     */
+    public function addProfesseur(\PersonnesBundle\Entity\ProfesseurAssociation $professeurs)
+    {
+        $this->professeurs[] = $professeurs;
+
+        return $this;
+    }
+
+    /**
+     * Remove professeurs
+     *
+     * @param \PersonnesBundle\Entity\ProfesseurAssociation $professeurs
+     */
+    public function removeProfesseur(\PersonnesBundle\Entity\ProfesseurAssociation $professeurs)
+    {
+        $this->professeurs->removeElement($professeurs);
+    }
+
+    /**
+     * Get professeurs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProfesseurs()
+    {
+        return $this->professeurs;
+    }
+}

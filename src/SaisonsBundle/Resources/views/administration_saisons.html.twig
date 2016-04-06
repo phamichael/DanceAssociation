@@ -1,0 +1,115 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Saisons Administration {% endblock %}
+
+{% block body %}
+	<div class="row" style="margin-top:3%;">
+		<div class="col-md-12">
+			<h2>Gestion des saisons</h2>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<a href="#addSaison" class="btn btn-block  btn-success"> Démarrer une nouvelle saison</a>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-offset-1 col-md-5">
+			<a href="#addTypeForfait" class="btn btn-block  btn-default"> Créer un type de forfait </a>
+		</div>
+		<div class="col-md-5">
+			<a href="#lesTypesForfait" class="btn btn-block  btn-default"> Gérer les types de forfait </a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<span style="font-weight:bold;font-size:xx-large;"> Les saisons</span>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table">
+							<tr>
+								<th>Saison</th>
+								<th>Début</th>
+								<th>Tarif</th>
+								<th></th>
+								</tr>
+								{% for saison in lesSaisons %} 
+								<tr class="ligne_tab_saisons">
+									<td><a href="{{ url('saison_fiche', {'anneeDebutSaison': saison.anneeDebutSaison}) }}">{{ 'Saison ' ~ saison.anneeDebutSaison }}</a></td>
+									<td>{{ saison.anneeDebutSaison }}</td>
+									<td>{{ saison.tarifSaison ~ '€'}}</td>
+									<td> <a href="{{ url('saison_editsuppr', {'anneeDebutSaison': saison.anneeDebutSaison}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+								</tr>
+								{% endfor %}
+							</tr>		
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-success">
+				<div class="panel-heading" id="ajout_cours">
+					<span style="font-weight:bold;font-size:xx-large;"> Création d'une nouvelle saison </span>
+				</div>
+				<div id="addSaison" class="panel-body">
+					{{ form(form) }}
+				</div>
+				<span class="italique">Une fois la saison enregistrée, vous serez invité à mettre à jour ses informations (cours, stages...)</span>
+			</div>
+		</div>
+		
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading" id="ajout_cours">
+					<span id="lesTypesForfait" style="font-weight:bold;font-size:xx-large;"> Les types de forfait </span>
+				</div>
+				<div id="addTypeForfait" class="panel-body">
+					<div class="table-responsive">
+						<table class="table">
+							<caption>Types de forfait existants ({{lesTypesForfait|length}})</caption>
+							<tr>
+								<th>Libellé</th>											
+								<th>Nombre de danses incluses</th>											
+								<th>Tarif</th>											
+							</tr>
+							{% for type in lesTypesForfait %}
+								<tr class="ligne_tab_stage">
+									<td>{{type.libelleTypeForfait}}</td>
+									<td>{{type.nbDanses}}</td>
+									<td>{{type.tarifTypeForfait}}€</td>
+									<td> <a href="{{ url('typeForfait_editsuppr', {'libelleTypeForfait': type.libelleTypeForfait}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+								</tr>
+							{% else %}
+								<tr><td class="rouge italique">
+									Aucun type de forfait d'enregistré...
+									Vous devez impérativement en créer un pour créer une saison !!!
+								</td></tr>
+							{% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading" id="ajout_cours">
+					<span style="font-weight:bold;font-size:xx-large;"> Création d'un nouveau type de forfait </span>
+				</div>
+				<div id="addTypeForfait" class="panel-body">
+					{% include "SaisonsBundle:formAddEdit_TypeForfait.html.twig" %}
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock %}

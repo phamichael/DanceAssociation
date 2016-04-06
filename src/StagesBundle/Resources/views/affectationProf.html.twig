@@ -1,0 +1,46 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : {{ stage.titreStage }} - Professeurs {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Stage : {{ stage.titreStage }}</h2>
+			</div>
+		</div>		
+			
+		<div class="row">
+			<div class="col-md-5">
+				<form action="" method="POST" id="formSuppr">	
+					<legend>Affecter un professeurs </legend>
+					{{ form_rest(formAddProf) }}
+				</form>
+			</div>
+			<div class="col-md-offset-2 col-md-5">
+				<table class="table">
+					<caption> Professeurs affectés (Nombre : {{lesProf|length}}) </caption>
+					<tr>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Tèl</th>
+					</tr>
+					{% for prof in lesProf %}
+						<tr class="ligne_tab_stages">
+							<td> {{ prof.personne.nomPersonne }} </td>
+							<td> {{ prof.personne.prenomPersonne }} </td>
+							<td> {{ prof.personne.prenomPersonne }} </td>
+							<td>
+								<a href="{{url('virer_professeur', {'titrestage': stage.titreStage, 'idprof':prof.id})}}" class="btn btn-danger btn-xs">Virer</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr><td><h4 class="rouge">Aucun professeur pour l'instant</h4></td></tr>
+					{% endfor %}
+				</table>
+				
+			</div>			
+		</div>
+		
+		
+{% endblock %}

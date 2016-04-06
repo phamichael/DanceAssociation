@@ -1,0 +1,175 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Cours-Administration {% endblock %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Gestion des Cours !</h2>
+		</div>
+	</div>
+		
+	<div class="row" style="margin-bottom:4%; ">
+		<div class="col-md-12 centrer">
+			<a href="#ajout_cours" class="btn btn-success">Ajouter un cours</a>
+		</div>
+	</div>
+		
+		
+	<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<span style="font-weight:bold;font-size:xx-large;"> Les Cours </span>
+						<span style="font-weight:bold;">Modification et suppression depuis cet endroit</span>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table">
+								<caption> Cours prévus pour cette saison </caption>
+								<tr>
+									<th>Danse</th>
+									<th>Niveau</th>
+									<th>Jours</th>
+									<th>Heure de début</th>
+									<th>Heure de début</th>
+
+
+								</tr>
+								{% for cours in lesCours %}
+									<tr class="ligne_tab_Cours">
+										<td><a href="{{ url('cours_fiche', {'id': cours.id}) }}">{{cours.danse.nomDanse}}</a></td>
+										<td>
+												{{ cours.niveauxDanse.libelleNiveauDanse }}
+										</td>
+										<td>{{ cours.jourcours }}</td>
+										<td>{{ cours.heureDebutCours|date('s/m/h') }}</td>
+										<td>{{ cours.heureFinCours|date('s/m/h') }}</td>
+
+										<td> <a href="{{ url('cours_editsuppr', {'id': cours.id}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+									</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</diV>
+				</div>
+			</div>
+				
+		</div>
+			
+			
+			
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_cours">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'un cours </span>
+					</div>
+					<div class="panel-body">
+						<!-- Inclusion du formulaire d'ajout de cours -->
+						{% include "CoursBundle:formAddEdit.html.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+    
+    <!-- Les modals -->
+    
+    <!-- Modal de suppression de cours -->
+    <div id="suppr_cours" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+            
+          <div class="modal-header">
+            <button type="button" class="close supprimer-rouge" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align:center;"> Supprimer cours</h4>
+          </div>
+            
+          <div class="modal-body">
+            <form  class="form-inline" style="text-align:center;" >
+              <span style="font-weight:bold;color:red;">Etes-vous sûr de vouloir supprimer ce cours ?</span>
+              <br/>
+               <div class="radio">
+                  <label><input type="radio" name="optradio">Oui</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="optradio">Non</label>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <!-- Modal de modification de cours -->
+    <div id="modif_cours" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+            
+          <div class="modal-header">
+            <button type="button" class="close supprimer-rouge" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align:center;"> Modifier cours de découverte </h4>
+          </div>
+            
+          <div class="modal-body">
+			  
+			  <form role="form">
+						<div class="form-group">
+							<label for="titre">id du cours : </label>
+							<input class="form-control" id="titre" placeholder="Donnez un titre accrocheur au cours..." value="cours de découverte">
+						 </div>
+						 <div class="form-group">
+							<label for="danse">Pour quel danse ? </label>
+							<select class="form-control" id="danse">
+								<option>Salsa</option>
+								<option selected>Zoumba</option>
+								<option>Kapoeïra</option>
+								<option>Bachata</option>
+							  </select>
+						 </div>
+						 <div class="form-group">
+							<label for="danse">Pour quels niveaux de danse ? </label>
+							<br/>
+							 <div class="checkbox-inline">
+								<label><input type="checkbox" value="">Débutant</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" checked value="">Initié</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Avancé</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" value="">Avancé +</label>
+							</div>
+						 </div>
+						 
+						 <div class="form-group">
+							 <label for="date_cours">Quelle est le jours du cours ? </label>
+							<input type="text" name="jour_cours" id="jours_cours" placeholder="lundi,mardi,...">
+						 </div>
+						 <div class="form-group">
+							 <label for="heureDebutCours">Quelle est l'heure de début du cours  ? </label>
+							<input type="date" value="15/03/2016" name="heureDebutCours" max="2012-06-25" min="2011-08-13" id="heureDebutCours" placeholder="jj/mm/aaaa">
+						 </div>
+						 <div class="form-group">
+							 <label for="heureFinCours">Quelle est la date du cours ? </label>
+							<input type="date" value="15/03/2016" name="heureFinCours" max="2012-06-25" min="2011-08-13" id="heureFinCours" placeholder="jj/mm/aaaa">
+						 </div>
+						 
+						 
+						<input type="submit" value="Modifier le cours" class="btn btn-block btn-success btn_ajout_cours">
+					</form>
+			  
+		  </div>
+		</div>
+	</div>
+   </div>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	<div class="col-md-12">
+		<!-- Les erreurs générales du formulaire. -->
+		{{ form_errors(form) }}
+
+
+
+
+	  <!-- Génération du label + error + widget pour un champ -->
+
+		{{ form_row(form.titreSoiree) }}
+		<div class="row">
+			<div class="col-md-4">
+				{{ form_row(form.dateSoiree) }}
+			</div>
+			<div class="col-md-offset-1 col-md-3">
+				{{ form_row(form.heureDebutSoiree) }}
+			</div>
+			<div class="col-md-4">
+				{{ form_row(form.heureFinSoiree) }}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				{{ form_row(form.tarifSoiree) }}
+			</div>
+		</div>
+
+		{{ form_row(form.descriptifSoiree) }}
+		
+		
+		{{ form_row(form.saison) }}
+		{{ form_row(form.salles) }}
+		{{ form_row(form.danses) }}
+		{{ form_row(form.professeurs) }}
+
+		<!-- Pour le bouton, pas de label ni d'erreur, on affiche juste le widget -->
+		{{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
+		<i>Une fois la soirée créée, vous pourrez affecter des cours d'initiation à cette soirée pour les danses séléctionées</i>
+
+	  <!-- Génération automatique des champs pas encore écrits.
+
+		 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+
+		 et tous les champs cachés (type « hidden »). -->
+
+	  {{ form_rest(form) }}
+
+	
+	</div>
+
+	<!-- Fermeture de la balise <form> du formulaire HTML -->
+
+	{{ form_end(form) }}

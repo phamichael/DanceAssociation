@@ -1,0 +1,31 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer {{professeur.nomPersonne}} {% endblock %}
+
+{% block body %}
+	
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier le professeur {{professeur.nomPersonne}}</h1>
+			</div>
+		</div>		
+
+		<!-- Suppression du professeur -->
+		
+	{% endif %}
+	
+	
+		<!-- Modification du professeur -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				{% if is_granted('ROLE_ADMIN') %}
+					<h3>Modification des informations du professeur </h3>
+				{% else %}
+					<center><h3>Modification de mes informations</h3></center><br>
+				{% endif %}
+				{% include "PersonnesBundle:Professeur:formAddEdit.html.twig" %}
+			</div>
+		</div>
+	
+{% endblock %}

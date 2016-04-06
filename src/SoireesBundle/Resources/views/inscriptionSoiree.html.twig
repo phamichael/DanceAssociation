@@ -1,0 +1,46 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : {{ soiree.titreSoiree }} - Inscrits à la soirée {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h2> Les inscrits à la soirée {{ soiree.titreSoiree }}</h2>
+			</div>
+		</div>		
+			
+		<div class="row">
+			<div class="col-md-5">
+				<form action="" method="POST" id="formSuppr">	
+					<legend>Inscrire un adhérent à la soirée </legend>
+					{{ form_rest(formAddAdherent) }}
+				</form>
+			</div>
+			<div class="col-md-offset-2 col-md-5">
+				<table class="table">
+					<caption> Inscrits actuels (Nombre : {{lesInscrits|length}}) </caption>
+					<tr>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Tèl</th>
+					</tr>
+					{% for inscrit in lesInscrits %}
+						<tr class="ligne_tab_stages">
+							<td> {{ inscrit.personne.nomPersonne }} </td>
+							<td> {{ inscrit.personne.prenomPersonne }} </td>
+							<td> {{ inscrit.personne.prenomPersonne }} </td>
+							<td>
+								<a href="{{ url('virer_adherent', {'titresoiree': soiree.titreSoiree, 'idadherent':inscrit.id}) }}" class="btn btn-danger btn-xs">Virer</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr><td><h4 class="rouge">Aucun inscrit à la soirée pour l'instant</h4></td></tr>
+					{% endfor %}
+				</table>
+				
+			</div>			
+		</div>
+		
+		
+{% endblock %}

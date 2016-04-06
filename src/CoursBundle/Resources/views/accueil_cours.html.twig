@@ -1,0 +1,91 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : cours {% endblock %}
+
+{% block body %}
+	
+		<div class="row" style="margin-top:3%;">
+			<div class="col-md-8">
+				<h2>Participez à nos cours !</h2>
+			</div>
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-md-4">
+					<a href="{{ path('cours_administration') }}" class="floatRight btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter un cours</a>
+				</div>
+			{% endif %}
+		</div>
+			
+		<div class="row">
+			<p class="col-md-9 presentationRubrique">
+				Chaque saison, de nombreux cours sont organisés afin de permettre à n'importe qui de découvrir des danses au sein 
+				de notre association ! Ci-dessous les cours de la saison actuelle (2015-2016) :
+			</p>
+		</div>
+			
+			
+			
+		<div class="row" style='margin-top:1%;'>
+				
+			{% if lesCours %}
+				
+				<div class="row lesactivites">
+				{% for cours in lesCours %}
+										
+					<div class="col-md-4">
+						<div class="panel panel-success">
+							
+							<a href="{{ url('cours_fiche', {'id': cours.id}) }}" class="activite">
+								<div class="panel-body">
+									<h3 class="titre_cours"> {{ cours.danse.nomDanse }} </h3>
+									<span class="danse_cours">{{ cours.danse.nomDanse }}</span>
+									<br/>
+									<span class="niveau_cours">Niveau enseigné : 
+											{{ cours.niveauxDanse.libelleNiveauDanse }}
+									</span>
+									<br/>
+									Le cours aura lieu le:  {{ cours.jourCours }}
+									de {{ cours.heureDebutCours|date('s/m/h') }} à {{ cours.heureFinCours|date('s/m/h') }}
+
+									<br/>
+									<p class="textInDiv"> 
+										 {{ cours.danse.descriptifDanse|slice(0, 50) }}
+									</p>
+								</div>
+							</a> 
+							{% if is_granted("ROLE_ADMIN") %}
+								<div class="panel-footer" style="text-align:right;">
+									<a href="{{ url('cours_editsuppr', {'id': cours.id}) }}" class="btn btn-danger">Gérer</a>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					
+				{% endfor %}
+				</div>
+					
+				<div class="row">
+					<div class="col-md-offset-4 col-md-4">		
+						<ul id="pagination-digg">
+							<li class="previous-off">« Précédent</li>
+							<li class="active">1</li>
+							<li><a href="cours/?page=2">2</a></li>
+							<li><a href="cours/?page=3">3</a></li>
+							<li><a href="cours/?page=4">4</a></li>
+							<li class="next"><a href="cours/?page=2">Suivant »</a></li>
+						</ul>
+					</div>
+				</div>
+					
+			{% else %}
+				<!-- {Aucun cours de trouvé.} -->
+				<div class="col-xs-12 col-md-12">
+					<h3 class="centrer rougeGras">
+						L'association n'a pas encore proposé de cours...
+						<br/> 
+						Patience patience patience .... sa arrive !!! un peu de patience 
+					</h3>
+				</div>
+			{% endif %}
+				
+		</div>
+{% endblock %}

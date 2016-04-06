@@ -1,0 +1,72 @@
+saison_fiche :
+    path:    /saisons/{anneeDebutSaison}
+    defaults:
+        _controller: SaisonsBundle:Saisons:ficheSaison
+        
+danses_accueil :
+    path:      /danses/{page}
+    defaults:
+        _controller: SaisonsBundle:Danses:accueil
+        page:        1
+    requirements:
+        page: \d*
+
+danses_administration : 
+    path:      /administration/danses
+    defaults:
+        _controller: SaisonsBundle:Danses:administration
+        
+danse_editsuppr :
+    path:     /administration/danse/{nomdanse}
+    defaults:
+        _controller: SaisonsBundle:Danses:editSupprDanse
+        
+salles_administration : 
+    path:      /administration/salles
+    defaults:
+        _controller: SaisonsBundle:Salles:administration
+        
+salle_editsuppr :
+    path:     /administration/salles/{nomsalle}
+    defaults:
+        _controller: SaisonsBundle:Salles:editSupprSalle
+
+niveau_editsuppr :
+    path:     /administration/niveau/{libelleniveau}
+    defaults:
+        _controller: SaisonsBundle:Danses:editSupprNiveau
+
+inscription_coursForfait :
+    path:  /administration/{id_adherent}/inscription_coursForfait
+    defaults:
+        _controller: SaisonsBundle:Inscription:inscription_coursForfait
+
+inscription_coursForfaitDanse :
+    path:  /administration/{id_forfait}/inscription_coursForfaitDanse
+    defaults:
+        _controller: SaisonsBundle:Inscription:inscription_coursForfaitDanse
+
+inscription_coursForfaitPaiement :
+    path:  /administration/{id_forfait}/inscription_coursForfaitPaiement
+    defaults:
+        _controller: SaisonsBundle:Inscription:inscription_coursForfaitPaiement
+
+saisons_administration:
+    path:  /administration/saisons
+    defaults:
+        _controller: SaisonsBundle:Saisons:administration
+
+saison_creationSuccess:
+    path:  /administration/saisons/{anneeDebutSaison}/creation_succes
+    defaults:
+        _controller: SaisonsBundle:Saisons:creationSucces
+    
+saison_editsuppr :
+    path:     /administration/saisons/{anneeDebutSaison}
+    defaults:
+        _controller: SaisonsBundle:Saisons:editSupprSaison
+
+typeForfait_editsuppr :
+    path:     /administration/type_forfait/{libelleTypeForfait}
+    defaults:
+        _controller: SaisonsBundle:Saisons:editSupprTypeForfait

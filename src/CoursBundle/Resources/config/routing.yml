@@ -1,0 +1,27 @@
+cours_planning :
+    path:    /planning
+    defaults:
+        _controller: CoursBundle:Cours:planning
+
+cours_fiche :
+    path:    /fiche/{id}
+    defaults:
+        _controller: CoursBundle:Cours:fiche
+
+cours_editsuppr :
+    path:     /administration/{id}
+    defaults:
+        _controller: CoursBundle:Cours:editSuppr
+
+cours_administration :
+    path:      /administration
+    defaults:
+        _controller: CoursBundle:Cours:administration
+
+cours_accueil :
+    path:      /{page}
+    defaults:
+        _controller: CoursBundle:Cours:accueil
+        page:        1
+    requirements:
+        page: \d*

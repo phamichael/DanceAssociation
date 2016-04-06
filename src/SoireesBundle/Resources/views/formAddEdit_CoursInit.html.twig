@@ -1,0 +1,44 @@
+{% form_theme formAddCoursInit 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(formAddCoursInit, {'attr': {'class': 'form-horizontal'}}) }}
+	<div class="col-md-12">
+		<!-- Les erreurs générales du formulaire. -->
+		{{ form_errors(formAddCoursInit) }}
+
+
+
+
+	  <!-- Génération du label + error + widget pour un champ -->
+		<div class="row">
+			<div class="col-md-5">
+				{{ form_row(formAddCoursInit.danse) }}
+				{{ form_row(formAddCoursInit.niveauxDanse) }}
+				{{ form_row(formAddCoursInit.salle) }}
+				{{ form_row(formAddCoursInit.professeurAssociation) }}
+			</div>
+			<div class="col-md-offset-1 col-md-6">
+				{{ form_row(formAddCoursInit.jourCours) }}
+				<div class="col-md-6" style="padding:0;">{{ form_row(formAddCoursInit.heureDebutCours) }}</div>
+				<div class="col-md-6">{{ form_row(formAddCoursInit.heureFinCours) }}</div>
+			</div>
+		</div>
+		
+
+		<!-- Pour le bouton, pas de label ni d'erreur, on affiche juste le widget -->
+		{{ form_widget(formAddCoursInit.Confirmer, {'attr': {'class': 'btn btn-block btn-warning'}}) }}
+
+
+	  <!-- Génération automatique des champs pas encore écrits.
+
+		 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+
+		 et tous les champs cachés (type « hidden »). -->
+
+	  {{ form_rest(formAddCoursInit) }}
+
+	
+	</div>
+
+	<!-- Fermeture de la balise <form> du formulaire HTML -->
+
+	{{ form_end(formAddCoursInit) }}

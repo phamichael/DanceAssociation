@@ -1,0 +1,47 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer la saison {{ saison.anneeDebutSaison }}/{{ saison.anneeDebutSaison+1 }} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier/Supprimer la saison {{ saison.anneeDebutSaison }}/{{ saison.anneeDebutSaison+1 }} </h1>
+			</div>
+		</div>		
+
+		<!-- Suppression du type -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<a id="btnSuppr" href="#" class="btn btn-block btn-danger"> Supprimer la saison </a>
+				
+				<div id="confirSuppr" hidden>
+					<p>
+						Etes-vous certain de vouloir supprimer cette saison ?
+					</p>
+
+					<form action="{{ path('saison_editsuppr', {'anneeDebutSaison': saison.anneeDebutSaison}) }}" method="POST" id="formSuppr">	
+						<a id="btnAnnulerSuppr" href="#" class="btn btn-default">
+							Ne pas supprimer
+						</a>
+						{# Ici j'ai écrit le bouton de soumission à la main #}	
+						<input type="submit" value="Supprimer" class="btn btn-danger" />
+						{# Ceci va générer le champ CSRF #}
+						{{ form_rest(formSuppr) }}
+					  </form>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+		<!-- Modification de la saison -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3>Modification des informations générales de la saison </h3>
+				{{ form(form) }}
+			</div>
+		</div>
+		
+		
+{% endblock %}

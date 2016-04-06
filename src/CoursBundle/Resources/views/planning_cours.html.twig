@@ -1,0 +1,232 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Stages {% endblock %}
+
+  {% block body %}
+    <body>
+
+
+
+      
+      <!--<div>
+        <iframe src="https://calendar.google.com/calendar/embed?showTabs=0&amp;showCalendars=0&amp;mode=WEEK&amp;height=600&amp;wkst=2&amp;hl=fr&amp;bgcolor=%23ffffff&amp;src=buk18t4pagjtfcc0q7en7ture8%40group.calendar.google.com&amp;color=%23333333&amp;ctz=Europe%2FParis" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+      </div>-->
+
+      <div class="container">
+        <h2 class="titrePlanning">Planning des cours</h2>
+        <br>
+        <br>
+
+        {% if lesCours %}
+
+          <div class="row tableau" style="center">
+          <table class="table-bordered table-responsive col-md-offset-2 col-md-1 col-xs-offset-2 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Lundi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for lundi in leslundi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ lundi.danse.nomDanse }} 
+                      <br>
+                      de {{ lundi.heureDebutCours|date('H:i:s') }} à {{ lundi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ lundi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Mardi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for mardi in lesmardi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ mardi.danse.nomDanse }} 
+                      <br>
+                      de {{ mardi.heureDebutCours|date('H:i:s') }} à {{ mardi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ mardi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Mercredi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for mercredi in lesmercredi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ mercredi.danse.nomDanse }} 
+                      <br>
+                      de {{ mercredi.heureDebutCours|date('H:i:s') }} à {{ mercredi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ mercredi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Jeudi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for jeudi in lesjeudi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ jeudi.danse.nomDanse }} 
+                      <br>
+                      de {{ jeudi.heureDebutCours|date('H:i:s') }} à {{ jeudi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ jeudi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Vendredi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for vendredi in lesvendredi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ vendredi.danse.nomDanse }} 
+                      <br>
+                      de {{ vendredi.heureDebutCours|date('H:i:s') }} à {{ vendredi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ vendredi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Samedi
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for samedi in lessamedi %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ samedi.danse.nomDanse }} 
+                      <br>
+                      de {{ samedi.heureDebutCours|date('H:i:s') }} à {{ samedi.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ samedi.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+
+
+          <table class="table-bordered table-responsive col-md-1 col-xs-1 tableau">
+              <thead>
+                <tr>
+                  <th class="cellule">
+                    Dimanche
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for dimanche in lesdimanche %}
+                  <!-- Faire un deuxième tableau pour stcket les valeurs dans une grille-->
+                  <tr>
+                    <td class="cellule">
+                      {{ dimanche.danse.nomDanse }} 
+                      <br>
+                      de {{ dimanche.heureDebutCours|date('H:i:s') }} à {{ dimanche.heureFinCours|date('H:i:s') }} 
+                      <br>
+                      salle: {{ dimanche.salle.nomSalle }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+          {% else %}
+          <!-- {Aucun cours de trouvé.} -->
+          <div class="col-xs-12 col-md-12">
+            <h3 class="centrer rougeGras">
+              Pas de planning puisqu'il n'ya pas de cours !!! :)
+              <br/> 
+              Patience patience patience .... sa arrive !!! un peu de patience 
+            </h3>
+          </div> <!-- col -->
+        {% endif %}
+
+      </div>
+
+
+
+
+
+      <div class="row">
+        <div class="col-md-4" style="margin-top:2%;">
+          <a href="{{ path('cours_accueil') }}" class="btn btn-warning">Revenir aux cours</a>
+        </div>
+      </div> <!-- /.row -->
+    {% endblock %}

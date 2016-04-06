@@ -1,0 +1,21 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Mon compte {% endblock %}
+
+{% block body %}
+	<div class="header_compte">
+        <center><img class="img-responsive img-center" src="{{ asset('/img/moncompte.png') }}" alt=""></center>
+    </div>
+    {% if is_granted("ROLE_ADMIN") %}
+    	<div class="col-md-6 col-md-offset-3">
+			<legend>Mes informations personnelles</legend>
+			<label>Username : {{ utilisateur.username}}</label><br><br>
+			<label>Nom : {{ utilisateur.nomPersonne}}</label><br>
+			<label>Prénom : {{ utilisateur.prenomPersonne}}</label><br>
+			<label>Adresse : {{ utilisateur.adressePersonne}}</label><br>
+			<label>Téléphone : {{ utilisateur.telephonePersonne}}</label><br>
+			<label>Email : {{ utilisateur.email}}</label><br><br>
+			{{ form(form) }}
+		</div>
+    {% endif %}
+{% endblock %}

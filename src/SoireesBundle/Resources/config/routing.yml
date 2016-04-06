@@ -1,0 +1,49 @@
+soirees_administration :
+    path:      /administration
+    defaults:
+        _controller: SoireesBundle:Soiree:administration
+
+soirees_inscription :
+    path:      /administration/inscription/{titresoiree}
+    defaults:
+        _controller: SoireesBundle:Soiree:inscription
+
+soirees_affectation :
+    path:      /administration/professeurs/{titresoiree}
+    defaults:
+        _controller: SoireesBundle:Soiree:affectation
+
+
+soirees_accueil :
+    path:      /{page}
+    defaults:
+        _controller: SoireesBundle:Soiree:accueil
+        page:        1
+    requirements:
+        page: \d*
+        
+soiree_fiche :
+    path:    /{titresoiree}
+    defaults:
+        _controller: SoireesBundle:Soiree:fiche
+
+virer_adherent :
+    path:      /administration/inscrits/{titresoiree}/virer/{idadherent}
+    defaults:
+        _controller: SoireesBundle:Soiree:virerAdherent
+        
+soiree_virer_professeur :
+    path:      /administration/professeurs/{titresoiree}/virer/{idprof}
+    defaults:
+        _controller: SoireesBundle:Soiree:virerProfesseur
+
+
+soiree_editsuppr :
+    path:    /administration/{titresoiree}
+    defaults:
+        _controller: SoireesBundle:Soiree:editSuppr
+
+soiree_editsupprCoursInit :
+    path:    /administration/{titresoiree}/cours_initation/{idcours}
+    defaults:
+        _controller: SoireesBundle:Soiree:editSupprCoursInit

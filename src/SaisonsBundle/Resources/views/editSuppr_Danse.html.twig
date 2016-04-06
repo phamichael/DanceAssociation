@@ -1,0 +1,62 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer la danse {{danse.nomDanse}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier/Supprimer la danse {{danse.nomDanse}}</h1>
+			</div>
+		</div>		
+
+		<!-- Suppression de la danse -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<a id="btnSuppr" href="#" class="btn btn-block btn-danger"> Supprimer la danse </a>
+				
+				<div id="confirSuppr" hidden>
+					<p>
+						Etes-vous certain de vouloir supprimer cette danse ?
+					</p>
+
+					<form action="{{ path('danse_editsuppr', {'nomdanse': danse.nomDanse}) }}" method="POST" id="formSuppr">	
+						<a id="btnAnnulerSuppr" href="#" class="btn btn-default">
+							Ne pas supprimer
+						</a>
+						{# Ici j'ai écrit le bouton de soumission à la main #}	
+						<input type="submit" value="Supprimer" class="btn btn-danger" />
+						{# Ceci va générer le champ CSRF #}
+						{{ form_rest(formSuppr) }}
+					  </form>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+		<!-- Modification de la danse -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3>Modification des informations de la danse </h3>
+				{% include "SaisonsBundle:formAddEdit_Danse.html.twig" %}
+			</div>
+		</div>
+	
+	
+		<!-- La fiche de danse -->
+		<div class="row" style="margin-top:2em;">
+			
+			<div id="visualiser_fiche" class="centrer col-md-offset-2 col-md-8">
+				<a class="btn btn-default btn-block" href="#">Visualiser la fiche de la danse</a>
+			</div>
+			
+			
+			<div id="fiche" class="col-md-offset-2 col-md-8 ficheActivite" hidden>
+				<h1 class="titreActiviteFiche">{{danse.nomDanse}}</h1>
+				{{ danse.descriptifDanse }}
+			</div>
+		</div>	
+		
+		
+{% endblock %}

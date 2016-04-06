@@ -1,0 +1,85 @@
+  {% extends "::layout.html.twig" %}
+
+  {% block rubrique %} : Soirees {% endblock %}
+
+    {% block body %}
+
+      <div class="row" style="margin-top:3%;">
+        <div class="col-md-8">
+          <h2>Participez à nos SOIREES !</h2>
+        </div>
+        {% if is_granted("ROLE_ADMIN") %}
+          <div class="col-md-4">
+            <a href="{{ path('soirees_administration') }}#ajout_soiree" class="floatRight btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter une soirée</a>
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="row">
+        <p class="col-md-9">
+          Chaque saison, de nombreuses soirées sont organisées  ! Ci-dessous les soirées pour la saison actuelle (2015-2016) :
+        </p>
+      </div>
+
+      {% if lesSoirees %}
+		<div class="row">
+        {% for soiree in lesSoirees %}
+          <div class="col-md-4">
+            <div class="panel panel-success">
+			  <a href="{{ url('soiree_fiche', {'titresoiree': soiree.titreSoiree}) }}" class="activite">
+              <div class="panel-body descriptif_stage">
+                <h2 class="gras titre_stage">{{ soiree.titreSoiree }}</h2>
+                <span class="danse_stage"> 
+					{% for danse in soiree.danses %}
+						{{ danse.nomDanse }}
+					{% endfor %}
+				</span>
+                <br/>
+                Date de la soirée : {{soiree.dateSoiree|date('d/m/Y')}}
+                <br/>
+                De {{ soiree.heureDebutSoiree|date('H:i') }} à {{ soiree.heureFinSoiree|date('H:i') }} 
+                <h4 class="vert">Prix : {{ soiree.tarifSoiree }}€ !</h4>
+
+                <p class="textInDiv">
+					{{ soiree.descriptifSoiree }}
+                </p>
+              </div>
+              </a>
+              {% if is_granted("ROLE_ADMIN") %}
+                <div class="panel-footer">
+                  <a href="{{ url('soiree_editsuppr', {'titresoiree': soiree.titreSoiree}) }}" class="btn btn-danger">Gérer</a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+		</div>
+
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">    
+            <ul id="pagination-digg">
+              <li class="previous-off">« Précédent</li>
+              <li class="active">1</li>
+              <li><a href="soirees/?page=2">2</a></li>
+              <li><a href="soirees/?page=3">3</a></li>
+              <li><a href="soirees/?page=4">4</a></li>
+              <li class="next"><a href="soirees/?page=2">Suivant »</a></li>
+            </ul>
+          </div>
+        </div>
+
+        {% else %}
+
+        <!-- {Aucune soirrées de trouvé.} -->
+        <div class="col-xs-12 col-md-12">
+          <h3 class="centrer rougeGras">
+            L'association ne propose pas de soirées pour le moment, désolé ... !
+            <br/> 
+            Cependant restez informé, il se pourrait bien qu'elle en prépare une ! 
+          </h3>
+        </div>
+
+      {% endif %}
+
+
+    {% endblock %}

@@ -1,0 +1,79 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Soirees {{soiree.titreSoiree}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{{ path('soirees_accueil') }}" class="btn btn-default">Les soirees</a>
+			</div>
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-md-6">
+					<a href="{{ url('soiree_editsuppr', {'titresoiree': soiree.titreSoiree}) }}" class="floatRight btn btn-danger">Modifier/Supprimer cette soirée</a>
+				</div>
+			{% endif %}
+		</div>		
+			
+		
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 ficheActivite">
+				<h1 class="titreActiviteFiche">{{soiree.titreSoiree}}</h1>
+				<span class="italique">Le {{ soiree.dateSoiree|date('d/m/Y') }} de {{ soiree.heureDebutSoiree|date('H:i:s') }} à {{ soiree.heureFinSoiree|date('H:i:s') }} </span>
+				<br/>
+				<span class="italique">Descriptif de la soirée : </span>
+				<p>
+					{{ soiree.descriptifSoiree }}
+				</p>
+				<span class="italique">Danse(s) de la soirée : </span>
+				{% for danse in soiree.danses %}
+					{{ danse.nomDanse }}
+				{% endfor %}
+				<br/>
+				<span class="italique">Salle(s) de la soirée : </span>
+				{% for salle in soiree.salles %}
+					{{ salle.nomSalle }}
+				{% endfor %}
+				<div>
+					<span class="gras vert">Tarif : {{ soiree.tarifSoiree }}€ à régler sur place ! </span>
+				</div>
+				
+				<div class="table-responsive">
+					<table class="table">
+						<caption>Cours d'initiation ({{soiree.coursinitiation|length}})</caption>
+						<tr>
+							<th>Danse</th>
+							<th>Professeur(s)</th>
+							<th>Salle(s)</th>											
+							<th>Jours</th>											
+							<th>Début</th>											
+							<th>Fin</th>											
+						</tr>
+						{% for cours in soiree.coursinitiation %}
+							<tr class="ligne_tab_danse">
+								<td>{{cours.danse.nomDanse}}</td>
+								<td>
+									{% for prof in cours.professeurAssociation %}
+										{{ prof.personne.nomPersonne }}
+									{% endfor %}
+								</td>
+								<td>
+									{{cours.salle.nomSalle}}
+								</td>
+								<td>{{ cours.jourCours }}</td>
+								<td>{{ cours.heureDebutCours|date('H:i:s') }}</td>
+								<td>{{ cours.heureDebutCours|date('H:i:s') }}</td>
+								<td> <a href="{{ path('soiree_editsupprCoursInit', {'titresoiree': soiree.titreSoiree, 'idcours':cours.id}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+							</tr>
+						{% else %}
+							<tr><td class="rouge italique">Aucun cours d'initiation pour cette soirée.</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+		
+
+		
+		
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Stages {{stage.titreStage}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{{ path('stages_accueil') }}" class="btn btn-default">Les stages</a>
+			</div>
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-md-6">
+					<a href="{{ url('stage_editsuppr', {'titrestage': stage.titreStage}) }}"   class="floatRight btn btn-danger">Modifier/Supprimer ce stage</a>
+				</div>
+			{% endif %}
+		</div>		
+			
+		
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 ficheActivite">
+				<h1 class="titreActiviteFiche">{{stage.titreStage}}</h1>
+				<span class="italique">Le {{ stage.dateStage|date('d/m/Y') }} de {{ stage.heureDebutStage|date('H:i:s') }} à {{ stage.heureFinStage|date('H:i:s') }} </span>
+				<p>
+					{{ stage.descriptifStage }}
+				</p>
+				<div>
+					<span class="rouge">Date limite des préinscriptions : {{ stage.delaiPreinscription|date('d/m/Y') }} </span>
+					<br/>
+					<span>Montant de préinscription : {{ stage.montantPreinscription }}€ </span>
+				</div>
+			</div>
+		</div>	
+		
+		
+{% endblock %}

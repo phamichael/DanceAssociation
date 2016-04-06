@@ -1,0 +1,29 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer {{adherent.nomPersonne}} {% endblock %}
+
+{% block body %}
+
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier l'adherent {{adherent.nomPersonne}}</h1>
+			</div>
+		</div>
+
+		<!-- Suppression adherent -->
+		
+		{% endif %}		
+	
+		<!-- Modification adherent -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				{% if is_granted('ROLE_ADMIN') %}
+					<h3>Modification des informations de l'adhérent </h3>
+				{% else %}
+					<center><h3>Modification de mes informations</h3></center><br>
+				{% endif %}
+				{% include "PersonnesBundle:Adherent:formEdit.html.twig" %}
+			</div>
+		</div>
+{% endblock %}

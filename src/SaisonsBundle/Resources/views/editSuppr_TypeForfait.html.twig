@@ -1,0 +1,47 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Modifier ou supprimer le type de forfait {{type.libelleTypeForfait}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Modifier/Supprimer le type de forfait {{type.libelleTypeForfait}}</h1>
+			</div>
+		</div>		
+
+		<!-- Suppression du type -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<a id="btnSuppr" href="#" class="btn btn-block btn-danger"> Supprimer le type de forfait </a>
+				
+				<div id="confirSuppr" hidden>
+					<p>
+						Etes-vous certain de vouloir supprimer ce type ?
+					</p>
+
+					<form action="{{ path('typeForfait_editsuppr', {'libelleTypeForfait': type.libelleTypeForfait}) }}" method="POST" id="formSuppr">	
+						<a id="btnAnnulerSuppr" href="#" class="btn btn-default">
+							Ne pas supprimer
+						</a>
+						{# Ici j'ai écrit le bouton de soumission à la main #}	
+						<input type="submit" value="Supprimer" class="btn btn-danger" />
+						{# Ceci va générer le champ CSRF #}
+						{{ form_rest(formSuppr) }}
+					  </form>
+				</div>
+				
+			</div>
+		</div>
+	
+	
+		<!-- Modification du type de forfait -->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 bordure">
+				<h3>Modification des informations de la salle </h3>
+				{% include "SaisonsBundle:formAddEdit_TypeForfait.html.twig" %}
+			</div>
+		</div>
+		
+		
+{% endblock %}

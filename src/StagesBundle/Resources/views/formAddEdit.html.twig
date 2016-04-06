@@ -1,0 +1,65 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+	<div class="col-md-12">
+		<!-- Les erreurs générales du formulaire. -->
+		{{ form_errors(form) }}
+
+
+
+
+	  <!-- Génération du label + error + widget pour un champ -->
+		
+		<div class="row">
+			<div class="col-md-9">
+				{{ form_row(form.titreStage) }}
+			</div>
+			<div class="col-md-offset-1 col-md-2">
+				{{ form_row(form.saison, {'attr' : { 'class' : 'rouge gras' }}) }}
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				{{ form_row(form.danse) }}
+				{{ form_row(form.niveauxDanse) }}
+				{{ form_row(form.salles) }}
+				{{ form_row(form.capaciteStage) }}
+				{{ form_row(form.professeursAsso) }}
+			</div>
+			<div class="col-md-offset-1 col-md-6">
+				{{ form_row(form.dateStage) }}
+				<div class="col-md-6" style="padding:0;">{{ form_row(form.heureDebutStage) }}</div>
+				<div class="col-md-6">{{ form_row(form.heureFinStage) }}</div>
+				<span class="italique rouge">Attention, la date du stage doit correspondre à la saison.</span>
+			{{ form_row(form.delaiPreinscription) }}
+			{{ form_row(form.tarifStage) }}
+			{{ form_row(form.montantPreinscription) }}
+			{{ form_row(form.professeurs) }}
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				{{ form_row(form.descriptifStage) }}
+			</div>
+		</div>
+
+		<!-- Pour le bouton, pas de label ni d'erreur, on affiche juste le widget -->
+		{{ form_widget(form.Confirmer, {'attr': {'class': 'btn btn-block btn-warning'}}) }}
+
+
+	  <!-- Génération automatique des champs pas encore écrits.
+
+		 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+
+		 et tous les champs cachés (type « hidden »). -->
+
+	  {{ form_rest(form) }}
+
+	
+	</div>
+
+	<!-- Fermeture de la balise <form> du formulaire HTML -->
+
+	{{ form_end(form) }}

@@ -1,0 +1,42 @@
+professeurs_administration:
+    path:    /administration/professeurs
+    defaults:
+        _controller: PersonnesBundle:Professeur:accueil_admin
+
+adherents_administration:
+    path:    /administration/adherents
+    defaults:
+        _controller: PersonnesBundle:Adherent:accueil_admin
+
+inscription_cours:
+    path:    /administration/inscriptioncours
+    defaults:
+        _controller: PersonnesBundle:Adherent:inscription_cours
+
+mon_compte:
+    pattern: /moncompte
+    defaults:
+        _controller: PersonnesBundle:GestionCompte:moncompte
+
+professeur_editsuppr:
+    path:     /administration/gestion/Professeur/{idPersonne}
+    defaults:
+        _controller: PersonnesBundle:Professeur:editSuppr
+
+adherent_editsuppr:
+    path:     /administration/gestion/Adherent/{idPersonne}
+    defaults:
+        _controller: PersonnesBundle:Adherent:editSuppr
+
+mon_compteAdmin:
+    path:    /administration/moncompte
+    defaults:
+        _controller: PersonnesBundle:GestionCompteAdmin:moncompteAdmin
+
+# inscription_typeProf_admin:
+#     path:  /administration/professeurs/ajout/{idPersonne}
+#     defaults:
+#         _controller: PersonnesBundle:Professeur:inscription_typeProf_admin
+
+
+

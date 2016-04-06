@@ -1,0 +1,235 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Mon compte {% endblock %}
+
+{% block body %}
+	<div class="header_compte">
+        <center><img class="img-responsive img-center" src="{{ asset('/img/moncompte.png') }}" alt=""></center>
+    </div>
+
+	{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+		<div class="col-md-6 col-md-offset-3">
+		<legend>Mes informations personnelles</legend>
+		<label>Username : {{ utilisateur.username}}</label><br><br>
+		<label>Nom : {{ utilisateur.nomPersonne}}</label><br>
+		<label>Prénom : {{ utilisateur.prenomPersonne}}</label><br>
+		<label>Adresse : {{ utilisateur.adressePersonne}}</label><br>
+		<label>Téléphone : {{ utilisateur.telephonePersonne}}</label><br>
+		<label>Email : {{ utilisateur.email}}</label><br><br>
+		{% if is_granted("ROLE_ADHERENT") %}
+			<label>Type de forfait choisi : {{ forfait.getTypeForfait().getLibelleTypeForfait() }}</label><br>
+			<label>Mode de paiement : {{ forfait.getModePaiement() }}</label><br>
+		{% endif %}
+
+		{# bouton modifié #}
+		{{ form(form) }}
+		
+		{% if is_granted("ROLE_ADHERENT") %}
+			<div class="table-responsive">
+		       <table class="table table-striped">
+		       	<caption>Liste des cours</caption>
+		         <thead>
+		           <tr>
+		             <th>Danse</th>
+		             <th>Niveau</th>
+		           </tr>
+		         </thead>
+		         <tbody>
+		         {% for uneDanseNiveau in listDanseNiveau %}
+		           <tr>        
+		             <td>{{ uneDanseNiveau.getIdDanse().getNomDanse() }}</td>
+		             <td>{{ uneDanseNiveau.getIdNiveau().getLibelleNiveauDanse() }}</td>
+		           </tr>
+		         {% endfor %}
+		         </tbody>
+		       </table>
+		    </div>
+
+		    <br><br>
+		    {% if listStages != null %}
+			    <div class="table-responsive">
+			       <table class="table table-striped">
+			       	<caption>Liste des stages</caption>
+			        <thead>
+			           <tr>
+			           	<th>Titre du stage</th>
+			           	<th>Date</th>
+			           	<th>Heure de début</th>
+			           	<th>Heure de fin</th>
+			           	<th>Danse</th>
+			           </tr>
+			        </thead>
+			        <tbody>
+			        	{% for stage in listStages %}
+			        		<tr>
+			        			<td>{{ stage.getTitreStage()}}</td>
+			        			<td>{{ stage.getDateStage|date('d/m/Y')}}</td>
+			        			<td>{{ stage.getHeureDebutStage|date('H:i:s')}}</td>
+			        			<td>{{ stage.getHeureFinStage|date('H:i:s')}}</td>
+			        			<td>{{ stage.getDanse().getNomDanse()}}</td>
+			        		</tr>
+			        	{% endfor %}
+			        </tbody>	
+			   		</table>
+			   	</div>
+		   	{% endif %}
+		   	<br><br>
+		   	{% if listSoirees != null %}
+		   	<div class="table-responsive">
+		       <table class="table table-striped">
+		       	<caption>Liste des soirées</caption>
+		        <thead>
+		           <tr>
+		           	<th>Nom</th>
+		           	<th>Date</th>
+		           	<th>Heure de début</th>
+		           	<th>Heure de fin</th>
+		           </tr>
+		        </thead>
+		        <tbody>
+		        	{% for soiree in listSoirees %}
+		        		<tr>
+		        			<td>{{ soiree.getTitreSoiree()}}</td>
+		        			<td>{{ soiree.getDateSoiree|date('d/m/Y')}}</td>
+		        			<td>{{ soiree.getHeureDebutSoiree|date('H:i:s')}}</td>
+		        			<td>{{ soiree.getHeureFinSoiree|date('H:i:s')}}</td>
+		        		</tr>
+		        	{% endfor %}
+		        </tbody>	
+		   		</table>
+		   	</div>
+			{% endif %}
+		   	
+		{% elseif is_granted("ROLE_PROFASSOC")%}
+			{# afficher les cours  #}
+			
+			{# <label> Identifiant : {{profAssociation.id}} </label> #}
+			
+			{% if listStages != null %}
+			<div class="table-responsive">
+		       <table class="table table-striped">
+		       	<caption>Liste des stages</caption>
+		        <thead>
+		           <tr>
+		           	<th>Titre du stage</th>
+		           	<th>Date</th>
+		           	<th>Heure de début</th>
+		           	<th>Heure de fin</th>
+		           	<th>Danse</th>
+		           </tr>
+		        </thead>
+		        <tbody>
+		        	{% for stage in listStages %}
+		        		<tr>
+		        			<td>{{ stage.getTitreStage()}}</td>
+		        			<td>{{ stage.getDateStage|date('d/m/Y')}}</td>
+		        			<td>{{ stage.getHeureDebutStage|date('H:i:s')}}</td>
+		        			<td>{{ stage.getHeureFinStage|date('H:i:s')}}</td>
+		        			<td>{{ stage.getDanse().getNomDanse()}}</td>
+		        		</tr>
+		        	{% endfor %}
+		        </tbody>	
+		   		</table>
+		   	</div>
+		   	{% endif %}
+
+		   	<br><br>
+		   	{% if listCours != null %}
+		   	<div class="table-responsive">
+		       <table class="table table-striped">
+		       	<caption>Liste des cours</caption>
+		        <thead>
+		           <tr>
+		           	<th>Heure de début</th>
+		           	<th>Heure de fin</th>
+		           	<th>Danse</th>
+		           	<th>Niveau</th>
+		           	<th>Salle</th>
+		           	<th>Jour</th>
+		           </tr>
+		        </thead>
+		        <tbody>
+		        	{% for cours in listCours %}
+		        		<tr>
+		        			<td>{{ cours.getHeureDebutCours|date('H:i:s')}}</td>
+		        			<td>{{ cours.getHeureFinCours|date('H:i:s')}}</td>
+		        			<td>{{ cours.getDanse().getNomDanse()}}</td>
+		        			<td>{{ cours.getNiveauxDanse().getLibelleNiveauDanse()}}</td>
+		        			<td>{{ cours.getSalle().getNomSalle()}}</td>
+		        			<td>{{ cours.getJourCours()}}</td>
+		        		</tr>
+		        	{% endfor %}
+		        </tbody>	
+		   		</table>
+		   	</div>
+			{% endif %}
+
+			<br><br>
+			{% if listSoirees != null %}
+		   	<div class="table-responsive">
+		       <table class="table table-striped">
+		       	<caption>Liste des soirées</caption>
+		        <thead>
+		           <tr>
+		           	<th>Nom</th>
+		           	<th>Date</th>
+		           	<th>Heure de début</th>
+		           	<th>Heure de fin</th>
+		           </tr>
+		        </thead>
+		        <tbody>
+		        	{% for soiree in listSoirees %}
+		        		<tr>
+		        			<td>{{ soiree.getTitreSoiree()}}</td>
+		        			<td>{{ soiree.getDateSoiree|date('d/m/Y')}}</td>
+		        			<td>{{ soiree.getHeureDebutSoiree|date('H:i:s')}}</td>
+		        			<td>{{ soiree.getHeureFinSoiree|date('H:i:s')}}</td>
+		        		</tr>
+		        	{% endfor %}
+		        </tbody>	
+		   		</table>
+		   	</div>
+			{% endif %}
+
+			{# <br/>
+			cours : 
+			{% for c in cours %}
+				{{ c.id.getNomDanse() }}
+			{% endfor %}
+			<br/>
+			soirees : 
+			{% for s in soirees %}
+				{{ s.id }}
+			{% endfor %}
+			<br/>
+			stages :
+			{% for st in stages %}
+				{{ st.getTitreStage() }}
+			{% endfor %}
+			<br/> #}
+			{% elseif is_granted("ROLE_PROF")%}
+				{% if listStages != null %}
+					<div class="table-responsive">
+				       <table class="table table-striped">
+				       	<caption>Liste des stages</caption>
+				        <thead>
+				           <tr>
+				           	<th>Titre du stage</th>
+				           </tr>
+				        </thead>
+				        <tbody>
+				        	{% for stage in listStages %}
+				        		<tr>
+				        			<td>{{ stage.getTitreStage()}}</td>
+				        		</tr>
+				        	{% endfor %}
+				        </tbody>	
+				   		</table>
+				   	</div>
+		   		{% endif %}
+			{% endif %}
+			</div>
+	{% else %}
+			Veuillez vous connecter
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{# src/AssocDanse/PersonnesBundle/Resources/views/Security/login.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+  
+
+
+  {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+  {% if error %}
+    <div class="alert alert-danger">{{ error.message }}</div>
+  {% endif %}
+
+  <div class="">
+    {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+    <form class="form-signin" action="{{ path('fos_user_security_check') }}" method="post">
+      <h3 class="form-signin-heading">Veuillez vous connecter</h2>
+      <label for="username" class="sr-only">Login :</label>
+      <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+
+      <label for="password" class="sr-only">Mot de passe :</label>
+      <input type="password"  class="form-control" id="password" name="_password" />
+      <br/>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+    </form>
+  </div>
+
+{% endblock %}

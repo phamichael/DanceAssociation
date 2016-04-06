@@ -1,0 +1,93 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Stages {% endblock %}
+
+{% block body %}
+	
+		<div class="row" style="margin-top:3%;">
+			<div class="col-md-8">
+				<h2>Participez à nos STAGES !</h2>
+			</div>
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-md-4">
+					<a href="{{ path('stages_administration') }}#ajout_stage" class="floatRight btn btn-success"><span class="glyphicon glyphicon-plus-sign"></span> Ajouter un stage</a>
+				</div>
+			{% endif %}
+		</div>
+			
+		<div class="row">
+			<p class="col-md-9 presentationRubrique">
+				Chaque saison, de nombreux stages sont organisés afin de permettre à n'importe qui de découvrir des danses au sein 
+				de notre association ! Ci-dessous les stages de la saison actuelle (2015-2016) :
+			</p>
+		</div>
+			
+			
+			
+		<div class="row" style='margin-top:1%;'>
+				
+			{% if lesStages %}
+				
+				<div class="row lesactivites">
+				{% for stage in lesStages %}
+										
+					<div class="col-md-4">
+						<div class="panel panel-success">
+							
+							<a href="{{ url('stage_fiche', {'titrestage': stage.titreStage}) }}" class="activite">
+								<div class="panel-body">
+									<h2 class="gras titre_stage"> {{ stage.titreStage }} </h2>
+									<span class="danse_stage">{{ stage.danse.nomDanse }}</span>
+									<br/>
+									<span class="niveau_stage">Niveau enseigné : 
+										{% for niveau in stage.niveauxdanse %}
+											{{ niveau.libelleNiveauDanse }}
+										{% endfor %}
+									</span>
+									<br/>
+									Début du stage :  {{ stage.dateStage|date('d/m/Y') }}
+									<br/>
+									Dernier délais d'inscription : {{ stage.delaiPreinscription|date('d/m/Y') }}
+									<h4 style="color:#3F871E;">Seulement {{ stage.capaciteStage }} places !</h4>
+									<p class="textInDiv"> 
+										 {{ stage.descriptifStage|slice(0, 50) }}
+									</p>
+								</div>
+							</a>
+							{% if is_granted("ROLE_ADMIN") %}
+								<div class="panel-footer" style="text-align:right;">
+									<a href="{{ url('stage_editsuppr', {'titrestage': stage.titreStage}) }}" class="btn btn-danger">Gérer</a>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+					
+				{% endfor %}
+				</div>
+					
+				<div class="row">
+					<div class="col-md-offset-4 col-md-4">		
+						<ul id="pagination-digg">
+							<li class="previous-off">« Précédent</li>
+							<li class="active">1</li>
+							<li><a href="stages/?page=2">2</a></li>
+							<li><a href="stages/?page=3">3</a></li>
+							<li><a href="stages/?page=4">4</a></li>
+							<li class="next"><a href="stages/?page=2">Suivant »</a></li>
+						</ul>
+					</div>
+				</div>
+					
+			{% else %}
+				<!-- {Aucun stage de trouvé.} -->
+				<div class="col-xs-12 col-md-12">
+					<h3 class="centrer rougeGras">
+						L'association n'a pas encore proposé de stage...
+						<br/> 
+						Cependant restez informé, il se pourrait bien qu'elle en prépare un ! 
+					</h3>
+				</div>
+			{% endif %}
+				
+		</div>
+{% endblock %}

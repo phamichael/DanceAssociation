@@ -1,0 +1,29 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Saison créée avec succès ! {% endblock %}
+
+{% block body %}
+	
+	<div class="row centrer">
+		<div class="col-md-12">
+			<h1 class="vert gras"> La saison {{saison.anneeDebutSaison}}/{{saison.anneeDebutSaison+1}} a été crée avec succès ! </h1>
+			<span class="gras"> Cependant, vous devez maintenant lui affecter des cours et éventuellement des stages et soirées... </span>
+		</div>
+	</div>
+	
+	<div class="row centrer">
+		<div class="col-md-12">
+			<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Ajouter des stages</a>
+			<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Ajouter des soirée</a>
+			<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Ajouter des cours </a>
+			<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Ajouter des types de forfait</a>
+		</div>
+	</div>
+	
+	<div class="row centrer">
+		<div class="col-md-offset-2 col-md-8">
+			<a href="{{ url('saison_fiche', {'anneeDebutSaison': saison.anneeDebutSaison}) }}" class="btn btn-default btn-block">Voir récapitulatif de cette saison</a>
+		</div>
+	</div>
+	
+{% endblock %}

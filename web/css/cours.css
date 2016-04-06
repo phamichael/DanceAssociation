@@ -1,0 +1,44 @@
+.taille_etoile {
+	height: 5%;
+	width: 5%;
+}
+
+.texte_image {
+	width: 300px;
+	height: 150px;
+    overflow:auto;
+}
+
+body 
+{
+	background-image: url("./../static/img/Bachata.jpg");
+}
+
+.taille_etoile1 {
+
+	height: 10%;
+	width: 10%;
+}
+
+.titre_page {
+	color: red;
+	background: url("./../static/img/image_titre.jpeg");
+}
+
+.image_cours {
+	height: 250;
+	width: 250;
+}
+
+h1 
+{
+	background: ;
+}
+
+h1:hover
+{
+	transition: .5s text-shadow.5s;
+	font-size: 250%;
+	text-shadow: 5px 10px 10px ThreeDLightShadow;
+	text-decoration: underline;
+}

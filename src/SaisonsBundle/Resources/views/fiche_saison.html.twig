@@ -1,0 +1,117 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} Saison {{ saison.anneeDebutSaison }}/{{ saison.anneeDebutSaison+1 }} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-8">
+				<h1>Récapitulatif de la saison {{ saison.anneeDebutSaison }}/{{ saison.anneeDebutSaison+1 }} </h1>
+			</div>
+			<div class="col-md-4">
+				<h3 class="gras vert"> Tarif de l'adhésion : {{ saison.tarifSaison }}€ </h3>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Gérer les stages</a>
+				<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Gérer les soirée</a>
+				<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Gérer les cours </a>
+				<a href="{{ path('stages_administration') }}#ajout_stage" class="btn btn-default">Gérer les types de forfait</a>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+			</div>
+		</div>
+			
+		<div class="row">			
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table">
+						<caption>Stages prévus/réalisés ({{saison.stages|length}})</caption>
+						<tr>
+							<th>Titre</th>											
+							<th>Danse</th>											
+							<th>Niveaux</th>											
+							<th>Salles</th>											
+							<th>Professeurs</th>											
+							<th>Nb places</th>											
+							<th>Date</th>											
+						</tr>
+						{% for stage in saison.stages %}
+							<tr class="ligne_tab_stage">
+								<td><a href="{{ url('stage_fiche', {'titrestage': stage.titreStage}) }}">{{stage.titreStage}}</a></td>
+								<td>{{stage.danse.nomDanse}}</td>
+								<td>
+									{% for niveau in stage.niveauxDanse %}
+										{{ niveau.libelleNiveauDanse }}
+									{% endfor %}
+								</td>
+								<td>
+									{% for salle in stage.salles %}
+										{{ salle.nomSalle }}
+									{% endfor %}
+								</td>
+								<td>
+									{% for prof in stage.professeurs %}
+										{{ prof.personne.nomPersonne }}
+									{% endfor %}
+								</td>
+								<td>{{stage.capaciteStage}}</td>
+								<td>{{stage.dateStage|date('d/m/Y')}}</td>
+								<td> <a href="{{ url('stage_editsuppr', {'titrestage': stage.titreStage}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+							</tr>
+						{% else %}
+							<tr><td class="rouge italique">Aucun stage pour cette saison.</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>	
+		
+		<div class="row">	
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table">
+						<caption>Soirées prévus/réalisés ({{saison.soirees|length}})</caption>
+						<tr>
+							<th>titre</th>											
+						</tr>
+						{% for soiree in saison.soirees %}
+							<tr class="ligne_tab_stage">
+								<td> <a href="{{ url('soiree_fiche', {'titresoiree': soiree.titreSoiree}) }}">{{soiree.titreSoiree}}</a></td>
+								<td> <a href="{{ url('soiree_editsuppr', {'titresoiree': soiree.titreSoiree}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+							</tr>
+						{% else %}
+							<tr><td class="rouge italique">Aucune soirée pour cette saison.</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+			
+		<div class="row">	
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table">
+						<caption>Types de forfait proposés ({{saison.typesForfait|length}})</caption>
+						<tr>
+							<th>titre</th>											
+						</tr>
+						{% for type in saison.typesForfait %}
+							<tr class="ligne_tab_stage">
+								<td>{{type.libelleTypeForfait}}</td>
+								<td> <a href="{{ url('typeForfait_editsuppr', {'libelleTypeForfait': type.libelleTypeForfait}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+							</tr>
+						{% else %}
+							<tr><td class="rouge italique">Aucun type de forfait pour cette saison.</td></tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}

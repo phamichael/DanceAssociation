@@ -1,0 +1,76 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Soirees-Administration {% endblock %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Gestion des SOIREES !</h2>
+		</div>
+	</div>
+		
+	<div class="row" style="margin-bottom:4%; ">
+		<div class="col-md-12 centrer">
+			<a href="#ajout_soiree" class="btn btn-success">Ajouter une soirée</a>
+		</div>
+	</div>
+		
+		
+	<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<span style="font-weight:bold;font-size:xx-large;"> Les soirées </span>
+						<span style="font-weight:bold;">Modification et suppression depuis ce tableau</span>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table">
+								<caption> Soirées prévues pour cette saison </caption>
+								<tr>
+									<th>Nom de la soirée</th>
+									<th>Danse</th>
+									<th>Niveau</th>
+									<th>Date de début</th>
+								</tr>
+								{% for soiree in lesSoirees %}
+									<tr class="ligne_tab_soirees">
+										<td><a href="#">{{ soiree.titreSoiree }}</a></td>
+										<td>
+											{% for danse in soiree.danses %}
+												{{ danse.nomDanse }}
+											{% endfor %}
+										</td>
+										<td>Initié</td>
+										<td>{{ soiree.dateSoiree|date('d/m/Y') }}</td>
+										<td> <a href="{{ url('soiree_editsuppr', {'titresoiree': soiree.titreSoiree}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+									</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</diV>
+				</div>
+			</div>
+				
+		</div>
+			
+			
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_soiree">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'un soiree </span>
+					</div>
+					<div class="panel-body">
+						<!-- Inclusion du formulaire d'ajout de soiree -->
+						{% include "SoireesBundle:formAddEdit.html.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+    
+    
+
+{% endblock %}

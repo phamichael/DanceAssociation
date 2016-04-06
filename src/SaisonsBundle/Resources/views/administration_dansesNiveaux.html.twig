@@ -1,0 +1,158 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Danses Administration {% endblock %}
+
+{% block body %}
+	
+		<div class="row" style="margin-top:3%;">
+			<div class="col-md-12">
+				<h2>Gestion des Danses et des niveaux</h2>
+			</div>
+		</div>
+		
+		<div class="row" style="margin-bottom:4%; margin-top:2%;">
+			<div class="col-md-offset-2 col-md-8">
+				<a href="#ajout_danse" class="btn btn-block btn-success">Ajouter une danse</a>
+				<a href="#ajout_niveau" class="btn btn-block btn-success">Ajouter un niveau de danse</a>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<span style="font-weight:bold;font-size:xx-large;"> Les danses et niveaux de danse </span>
+						<span style="font-weight:bold;">Modification et suppression depuis ce tableau</span>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							
+							<div class="col-md-6">
+								<div class="table-responsive">
+									<table class="table">
+										<caption> Danses </caption>
+										<tr>
+											<th>Nom de la danse</th>
+											<th></th>
+										</tr>
+										{% for danse in lesDanses %}
+										<tr class="ligne_tab_danse">
+											<td>{{ danse.nomDanse }}</td>
+											<td> <a href="{{ url('danse_editsuppr', {'nomdanse': danse.nomDanse}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+										</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+							
+							<div class="col-md-6">
+								<div class="table-responsive">
+									<table class="table">
+										<caption> Niveaux de danse </caption>
+										<tr>
+											<th>Nom du niveau</th>
+											<th></th>
+										</tr>
+										{% for niveau in lesNiveaux %}
+										<tr class="ligne_tab_danse">
+											<td>{{ niveau.libelleNiveauDanse }}</td>
+											<td> <a href="{{ url('niveau_editsuppr', {'libelleniveau': niveau.libelleNiveauDanse}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+										</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+			
+			
+			
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_danse">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'une danse </span>
+					</div>
+					<div class="panel-body">
+						{% include "SaisonsBundle:formAddEdit_Danse.html.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_niveau">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'un niveau de danse </span>
+					</div>
+					<div class="panel-body">
+						{% include "SaisonsBundle:formAddEdit_NiveauDanse.html.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+    
+    <!-- Les modals -->
+    
+    <!-- Modal de suppression de danse -->
+    <div id="suppr_danse" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+            
+          <div class="modal-header">
+            <button type="button" class="close supprimer-rouge" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align:center;"> Supprimer danse </h4>
+          </div>
+            
+          <div class="modal-body">
+            <form method="POST" class="form-inline" style="text-align:center;" >
+              <span style="font-weight:bold;color:red;">Etes-vous sûr de vouloir supprimer cette danse ?</span>
+              <br/>
+               <div class="radio">
+                  <label><input type="radio" name="optradio">Oui</label>
+                </div>
+                <div class="radio">
+                  <label><input type="radio" name="optradio">Non</label>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    <!-- Modal de modification de danse -->
+    <div id="modif_danse" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <div class="modal-content">
+            
+          <div class="modal-header">
+            <button type="button" class="close supprimer-rouge" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" style="text-align:center;"> Modifier la danse </h4>
+          </div>
+            
+          <div class="modal-body">
+			<form role="form">
+				<div class="form-group">
+					<label for="danse">Nom de la danse ? </label>
+					<input type="text" value="Zoumba">
+				</div>
+				<input type="submit" value="Modifier la danse" class="btn btn-block btn-success btn_ajout_danse">
+			</form>
+		  </div>
+		</div>
+	</div>
+	</div>
+
+{% endblock %}
+	

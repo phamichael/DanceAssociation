@@ -1,0 +1,90 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Professeurs-Administration {% endblock %}
+
+{% block body %}
+
+	{# {% if is_granted('ROLE_ADMIN') %}{% endif %} #}
+
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Gestion des PROFESSEURS !</h2>
+		</div>
+	</div>
+		
+	<div class="row" style="margin-bottom:4%; ">
+		<div class="col-md-12 centrer">
+			<a href="#ajout_professeur" class="btn btn-success">Ajouter un professeur</a>
+		</div>
+	</div>
+
+	
+	
+
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+					<span style="font-weight:bold;font-size:xx-large;"> Les professeurs </span>
+					<span style="font-weight:bold;">Modification et suppression</span>
+				</div>
+				
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table">
+							<caption> Les professeurs pour cette saison </caption>
+							<tr>
+								<th>Login</th>
+								<!--<th>Mot de passe</th>-->
+								<th>Nom</th>
+								<th>Prénom</th>
+								<th>Membre de l'assoc'</th>
+								<th></th>
+								</tr>
+								{% for professeur in lesProfesseurs %} 
+								<tr class="ligne_tab_professeurs">
+									{# {% if  professeur.getRoles() %} #}
+									{# <td>{{ professeur. }}</td> #}
+									<td>{{ professeur.username }}</td>
+									<td>{{ professeur.nomPersonne }}</td>
+									<td>{{ professeur.prenomPersonne }}</td>
+									<td>
+										{% if "ROLE_PROFASSOC" in professeur.roles %}
+											Oui
+										{% else %}
+											Non
+										{% endif %}
+									</td>
+									<td> <a href="{{ url('professeur_editsuppr', {'idPersonne': professeur.id}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+								</tr>
+								{% endfor %}
+							</tr>		
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="panel panel-warning">
+				<div class="panel-heading" id="ajout_professeur">
+					<span style="font-weight:bold;font-size:xx-large;"> Ajout d'un professeur </span>
+				</div>
+				<div class="panel-body">
+
+					<!-- Inclusion du formulaire d'ajout de stage -->
+					{% include "PersonnesBundle:Professeur:formAddEdit.html.twig" %}
+    					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+
+
+{% endblock %}

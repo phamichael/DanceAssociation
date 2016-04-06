@@ -1,0 +1,28 @@
+{% form_theme formTypeForfait 'bootstrap_3_layout.html.twig' %}
+
+<div class="row">
+	<div class="col-md-offset-1 col-md-10">
+		{{ form_start(formTypeForfait, {'attr': {'class': 'form-horizontal'}}) }}
+			<!-- Les erreurs générales du formulaire. -->
+			{{ form_errors(formTypeForfait) }}
+			
+			{{ form_row(formTypeForfait.libelleTypeForfait) }}
+			{{ form_row(formTypeForfait.nbDanses) }}
+			{{ form_row(formTypeForfait.tarifTypeForfait) }}
+
+			<!-- Pour le bouton, pas de label ni d'erreur, on affiche juste le widget -->
+			{{ form_widget(formTypeForfait.Creer, {'attr': {'class': 'btn btn-block btn-warning'}}) }}
+
+
+		  <!-- Génération automatique des champs pas encore écrits.
+
+			 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+
+			 et tous les champs cachés (type « hidden »). -->
+
+		  {{ form_rest(formTypeForfait) }}
+		<!-- Fermeture de la balise <form> du formulaire HTML -->
+
+		{{ form_end(formTypeForfait) }}
+	</div>
+</div>

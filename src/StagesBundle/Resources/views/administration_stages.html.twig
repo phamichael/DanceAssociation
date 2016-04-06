@@ -1,0 +1,78 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Stages-Administration {% endblock %}
+
+{% block body %}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Gestion des STAGES !</h2>
+		</div>
+	</div>
+		
+	<div class="row" style="margin-bottom:4%; ">
+		<div class="col-md-12 centrer">
+			<a href="#ajout_stage" class="btn btn-success">Ajouter un stage</a>
+		</div>
+	</div>
+		
+		
+	<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<span style="font-weight:bold;font-size:xx-large;"> Les stages </span>
+						<span style="font-weight:bold;">Modification et suppression depuis cet endroit</span>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table">
+								<caption> Stages prévus pour cette saison </caption>
+								<tr>
+									<th>Nom du stage</th>
+									<th>Danse</th>
+									<th>Niveau</th>
+									<th>Date de début</th>
+									<th>Nombre de stagiaires</th>
+								</tr>
+								{% for stage in lesStages %}
+									<tr class="ligne_tab_stages">
+										<td><a href="{{ url('stage_fiche', {'titrestage': stage.titreStage}) }}">{{ stage.titreStage }}</a></td>
+										<td>{{ stage.danse.nomDanse }}</td>
+										<td>
+											{% for niveau in stage.niveauxDanse %}
+												{{ niveau.libelleNiveauDanse }}
+											{% endfor %}
+										</td>
+										<td>{{ stage.dateStage|date('d/m/Y') }}</td>
+										<td>{{ stage.stagiaires|length }}</td>
+										<td> <a href="{{ url('stage_editsuppr', {'titrestage': stage.titreStage}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+									</tr>
+								{% endfor %}
+							</table>
+						</div>
+					</diV>
+				</div>
+			</div>
+				
+		</div>
+			
+			
+			
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_stage">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'un stage </span>
+					</div>
+					<div class="panel-body">
+						<!-- Inclusion du formulaire d'ajout de stage -->
+						{% include "StagesBundle:formAddEdit.html.twig" %}
+											<span class="rouge gras">ATTENTION : Vérifiez-bien la saison à laquelle vous affectez le stage. Si aucune saison n'est proposé dans le formulaire, vous devrez d'abord en crée une.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : Salles Administration {% endblock %}
+
+{% block body %}
+	
+		<div class="row" style="margin-top:3%;">
+			<div class="col-md-12">
+				<h2>Gestion des salles</h2>
+			</div>
+		</div>
+		
+		<div class="row" style="margin-bottom:4%; margin-top:2%;">
+			<div class="col-md-offset-2 col-md-8">
+				<a href="#ajout_salle" class="btn btn-block btn-success">Ajouter une salle</a>
+			</div>
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading">
+						<span style="font-weight:bold;font-size:xx-large;"> Les salles </span>
+						<span class="italique">Modifier/Supprimer une salle en cliquant sur le bouton 'Gérer' correspondant.</span>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table">
+										<tr>
+											<th>Nom de la salle</th>
+											<th>Capacité</th>
+											<th>Adresse</th>											
+										</tr>
+										{% for salle in lesSalles %}
+										<tr class="ligne_tab_danse">
+											<td>{{ salle.nomSalle }}</td>
+											<td>{{ salle.capaciteSalle }}</td>
+											<td>{{ salle.adresseSalle }}</td>
+											<td> <a href="{{ url('salle_editsuppr', {'nomsalle': salle.nomSalle}) }}" class="btn btn-xs btn-danger">Gérer</a></td>
+										</tr>
+										{% endfor %}
+									</table>
+								</div>
+							</div>					
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>
+			
+			
+			
+		<div class="row">
+			<div class="col-md-offset-1 col-md-10">
+				<div class="panel panel-warning">
+					<div class="panel-heading" id="ajout_salle">
+						<span style="font-weight:bold;font-size:xx-large;"> Ajout d'une salle </span>
+					</div>
+					<div class="panel-body">
+						{% include "SaisonsBundle:formAddEdit_Salle.html.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
+	

@@ -1,0 +1,50 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : {{ stage.titreStage }} - Stagiaires {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Stagiaires : {{ stage.titreStage }}</h2>
+			</div>
+		</div>		
+			
+		<div class="row">
+			<div class="col-md-5">
+				<form action="" method="POST" id="formSuppr">	
+					<legend>Inscrire un adhérent </legend>
+					{{ form_rest(formAddAdherent) }}
+				</form>
+				<form action="" method="POST" id="formSuppr">	
+					<legend>Inscrire une personne extérieur </legend>
+					{{ form_rest(formAddPersonne) }}
+				</form>
+			</div>
+			<div class="col-md-offset-2 col-md-5">
+				<table class="table">
+					<caption> Stagiaires actuels (Nombre : {{lesStagiaires|length}}) </caption>
+					<tr>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Tèl</th>
+					</tr>
+					{% for stagiaire in lesStagiaires %}
+						<tr class="ligne_tab_stages">
+							<td> {{ stagiaire.nomPersonne }} </td>
+							<td> {{ stagiaire.prenomPersonne }} </td>
+							<td> {{ stagiaire.prenomPersonne }} </td>
+							<td>
+								<a href="{{ url('virer_stagiaire', {'titrestage': stage.titreStage, 'idpersonne':stagiaire.id}) }}" class="btn btn-danger btn-xs">Virer</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr><td><h4 class="rouge">Aucun stagiaire pour l'instant</h4></td></tr>
+					{% endfor %}
+				</table>
+				
+			</div>			
+		</div>
+		
+		
+{% endblock %}

@@ -1,0 +1,26 @@
+{% form_theme formNiveau 'bootstrap_3_layout.html.twig' %}
+
+<div class="row">
+	<div class="col-md-offset-1 col-md-10">
+		{{ form_start(formNiveau, {'attr': {'class': 'form-horizontal'}}) }}
+			<!-- Les erreurs générales du formulaire. -->
+			{{ form_errors(formNiveau) }}
+			
+			{{ form_row(formNiveau.libelleNiveauDanse) }}
+
+			<!-- Pour le bouton, pas de label ni d'erreur, on affiche juste le widget -->
+			{{ form_widget(formNiveau.Confirmer, {'attr': {'class': 'btn btn-block btn-warning'}}) }}
+
+
+		  <!-- Génération automatique des champs pas encore écrits.
+
+			 Dans cet exemple, ce serait le champ CSRF (géré automatiquement par Symfony !)
+
+			 et tous les champs cachés (type « hidden »). -->
+
+		  {{ form_rest(formNiveau) }}
+		<!-- Fermeture de la balise <form> du formulaire HTML -->
+
+		{{ form_end(formNiveau) }}
+	</div>
+</div>

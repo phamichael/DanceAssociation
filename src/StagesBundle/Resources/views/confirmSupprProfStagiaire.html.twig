@@ -1,0 +1,29 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : {{ stage.titreStage }} - Professeurs {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Stage {{ stage.titreStage }}</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12 centrer">
+				<h2 class="rouge"> Souhaitez-vous vraiment virer {{ prof.personne.nomPersonne }} du stage ? </h2>
+				<form action="" method="POST" id="formSuppr">	
+					<a href="{{ url('stages_affectation', {'titrestage': stage.titreStage}) }}" class="btn btn-default">
+						Ne pas virer
+					</a>
+					{# Ici j'ai écrit le bouton de soumission à la main #}	
+					<input type="submit" value="Virer du stage" class="btn btn-danger" />
+					{# Ceci va générer le champ CSRF #}
+					{{ form_rest(formSuppr) }}
+				</form>
+			</div>
+		</div>
+		
+		
+{% endblock %}

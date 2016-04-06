@@ -1,0 +1,29 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : {{ soiree.titreSoiree }} - Professeurs {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Soirée {{ soiree.titreSoiree }}</h2>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12 centrer">
+				<h2 class="rouge"> Souhaitez-vous vraiment exclure {{ prof.personne.nomPersonne }} de la soirée ? </h2>
+				<form action="" method="POST" id="formSuppr">	
+					<a href="{{ url('soirees_affectation', {'titresoiree': soiree.titreSoiree}) }}" class="btn btn-default">
+						Ne pas virer
+					</a>
+					{# Ici j'ai écrit le bouton de soumission à la main #}	
+					<input type="submit" value="Virer de la soirée" class="btn btn-danger" />
+					{# Ceci va générer le champ CSRF #}
+					{{ form_rest(formSuppr) }}
+				</form>
+			</div>
+		</div>
+		
+		
+{% endblock %}

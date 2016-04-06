@@ -1,0 +1,50 @@
+stages_administration :
+    path:      /administration
+    defaults:
+        _controller: StagesBundle:Stages:administration
+
+
+stages_inscription :
+    path:      /administration/stagiaires/{titrestage}
+    defaults:
+        _controller: StagesBundle:Stages:inscription
+
+
+stage_nonviable :
+    path:      /administration/stagiaires/{titrestage}/non_viable
+    defaults:
+        _controller: StagesBundle:Stages:stageNonViable
+
+
+stages_affectation :
+    path:      /administration/professeurs/{titrestage}
+    defaults:
+        _controller: StagesBundle:Stages:affectation
+
+stages_accueil :
+    path:      /{page}
+    defaults:
+        _controller: StagesBundle:Stages:accueil
+        page:        1
+    requirements:
+        page: \d*
+
+stage_fiche :
+    path:    /{titrestage}
+    defaults:
+        _controller: StagesBundle:Stages:fiche
+
+stage_editsuppr :
+    path:     /administration/{titrestage}
+    defaults:
+        _controller: StagesBundle:Stages:editSuppr
+
+virer_stagiaire :
+    path:      /administration/stagiaires/{titrestage}/virer/{idpersonne}
+    defaults:
+        _controller: StagesBundle:Stages:virerStagiaire
+
+virer_professeur :
+    path:      /administration/professeurs/{titrestage}/virer/{idprof}
+    defaults:
+        _controller: StagesBundle:Stages:virerProfesseur

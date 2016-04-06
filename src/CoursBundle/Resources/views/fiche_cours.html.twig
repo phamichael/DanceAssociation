@@ -1,0 +1,36 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : cours {{cours.id}} {% endblock %}
+
+{% block body %}
+	
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{{ path('cours_accueil') }}" class="btn btn-default">Les cours</a>
+			</div>
+			{% if is_granted("ROLE_ADMIN") %}
+				<div class="col-md-6">
+					<a href="{{ url('cours_editsuppr', {'id': cours.id}) }}"   class="floatRight btn btn-danger">Modifier/Supprimer ce cours</a>
+				</div>
+			{% endif %}
+		</div>		
+			
+		
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8 ficheActivite">
+				<h1 class="titreActiviteFiche">{{ 'Cours de '~cours.danse.nomDanse}}</h1>
+				<span class="italique">Le {{ cours.jourCours }} de {{ cours.heureDebutCours|date('H:i:s') }} à {{ cours.heureFincours|date('H:i:s') }} </span>
+				<p>
+					{{ cours.danse.descriptifDanse }}
+				</p>
+				Professeur(s) :
+				<p>
+				{% for prof in cours.professeurAssociation %}
+					{{ prof.personne.nomPersonne }} 
+				{% endfor %}
+				</p>
+			</div>
+		</div>
+		
+		
+{% endblock %}

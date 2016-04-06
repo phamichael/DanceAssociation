@@ -1,0 +1,129 @@
+{% extends "::layout.html.twig" %}
+
+{% block rubrique %} : danse {% endblock %}
+  {% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/css/cours.css') }}" type="text/css" />
+  {% endblock %}
+
+  {% block body %}
+
+    <div class="row" style="margin-top:3%;">
+      <div class="col-md-8">
+        <h2>Decouvrez nos danses !</h2>
+      </div>
+      {% if is_granted("ROLE_ADMIN") %}
+        <div class="col-md-4" style="margin-top:1%; float:right;">
+          <a href="{{ path('danses_administration') }}#ajout_danse" class="floatRight btn btn-success"> <span class="glyphicon glyphicon-plus-sign"></span> Ajouter une danse</a>
+        </div>
+      {% endif %}
+    </div>   
+
+    <div class="row">
+      <p class="col-md-9 presentationRubrique">
+        Cette saison (2015-2016) nous proposons différentes danses voici leurs listes avec une description
+         rapide des différentes danses enseignées lors de nos cours : 
+      </p>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="row" style="margin-top:1%">
+      {% if lesDanses %}
+
+        <div></div>
+        {% for danse in lesDanses %}
+
+          <div class="col-md-4">            
+              <img class="img-circle" src="{{ asset(danse.uploadDir ~ '/' ~ danse.nomImage) }}" alt="{{ danse.nomDanse }}" width="250" height="250">
+
+              <h2>{{ danse.nomDanse }}</h2>
+
+              <p class="texte_image">{{ danse.descriptifDanse }}</p>
+              {#
+              {% if  danse.niveau.libelleNiveauDanse = 'debutant' %}
+                <p>
+                  <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+                </p>
+                {% elseif  danse.niveau.libelleNiveauDanse = "initie" %}
+                <p>
+                  <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+                </p>
+                {% elseif  danse.niveau.libelleNiveauDanse = "avance" %}
+                <p>
+                  <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+                </p>
+                {% elseif  danse.niveau.libelleNiveauDanse = "avance+" %}
+                <p>
+                  <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+                </p> 
+                {% else %}
+                  <p class="centrer rougeGras">Cette danse n'a pas de niveau attribué. </p>
+              {% endif %}
+              #}
+
+            </a>
+            {% if is_granted("ROLE_ADMIN") %}
+              <p>
+                <a class="btn btn-warning" href="{{ url('danse_editsuppr', {'nomdanse': danse.nomDanse}) }}" role="button"> <span class="glyphicon glyphicon-edit"></span> Modifier</a> 
+                <a class="btn btn-danger" href="{{ url('danse_editsuppr', {'nomdanse': danse.nomDanse}) }}" role="button"> <span class="glyphicon glyphicon-trash"></span> Supprimer</a>
+              </p>
+            {% endif %}
+          </div><!-- /.col-md-4 -->
+
+        {% endfor %}
+
+        {% else %}
+        <div class="col-xs-12 col-md-12">
+          <h3 class="centrer rougeGras">
+            L'association ne propose pas pour le moment de danse...
+            <br/> 
+            Cependant restez informé, il se pourrait bien qu'elle en prépare un ! 
+          </h3>
+        </div>
+      {% endif %}
+
+    </div><!-- /.row  -->
+
+
+    <br>
+    <br>
+
+
+    
+    <div class="row">  
+     <div class="col-lg-4">
+      <p>Les niveau de danse enseignée:</p>
+    </div> <!-- /.col-lg-2 -->
+
+    <div class="col-lg-2">
+      <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+      <p>débutant</p>
+    </div> <!-- /.col-lg-2 -->
+
+    <div class="col-lg-2">
+      <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+      <p>initié</p>
+    </div> <!-- /.col-lg-2 -->
+
+    <div class="col-lg-2">
+      <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+      <p>avancé</p>
+    </div> <!-- /.col-lg-2 -->
+
+    <div class="col-lg-2">
+      <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile"> <img class="taille_etoile1" src="{{ asset('/img/etoile.png') }}" alt="etoile">
+      <p>avancé+</p>
+    </div> <!-- /.col-lg-2 -->
+
+    <div class="col-md-4" style="margin-top:2%;">
+      <a href="{{ path('cours_planning') }}" class="btn btn-info">Planning des cours</a>
+    </div>
+
+
+
+  </div> <!-- /.row -->
+{% endblock %}
